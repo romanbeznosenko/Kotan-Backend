@@ -1,8 +1,6 @@
 package com.kotanapp.kotanappapi.core.player.services;
 
-import com.kotanapp.kotanappapi.core.player.models.Player;
-import com.kotanapp.kotanappapi.core.player.models.PlayerId;
-import com.kotanapp.kotanappapi.core.player.models.PlayerRequest;
+import com.kotanapp.kotanappapi.core.player.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +15,16 @@ public class PlayerBuilders {
                 .playerPosition(playerRequest.playerPosition())
                 .team(null)
                 .birthDate(playerRequest.birthDate())
+                .build();
+    }
+
+    public static PlayerListResponse buildListResponse(PlayerDAO playerDAO) {
+        return PlayerListResponse.builder()
+                .id(playerDAO.getId())
+                .firstName(playerDAO.getFirstName())
+                .lastName(playerDAO.getLastName())
+                .playerPosition(playerDAO.getPlayerPosition())
+                .number(null)
                 .build();
     }
 }

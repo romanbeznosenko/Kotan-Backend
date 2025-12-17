@@ -35,7 +35,8 @@ public class WebSecurityConfig {
             "/ws/**",
             "/internal/**",
             "/api/team/list",
-            "api/match/list"
+            "api/match/list",
+            "api/team/{teamId}/player/list"
     };
 
     @Bean
