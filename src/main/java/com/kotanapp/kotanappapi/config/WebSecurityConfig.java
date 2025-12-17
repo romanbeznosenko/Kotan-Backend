@@ -1,8 +1,8 @@
 package com.kotanapp.kotanappapi.config;
 
+import com.kotanapp.kotanappapi.filters.JwtAuthenticationFilter;
 import com.kotanapp.kotanappapi.filters.RequestLogFilter;
 import com.kotanapp.kotanappapi.filters.TrackHeadersFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -34,7 +33,6 @@ public class WebSecurityConfig {
             "/auth/**",
             "/error/**",
             "/ws/**",
-            "/csrf",
             "/internal/**"
     };
 
@@ -49,42 +47,45 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, TrackHeadersFilter trackHeadersFilter, RequestLogFilter requestLogFilter) throws Exception {
-        httpSecurity.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.NEVER));
-        httpSecurity.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.addFilterBefore(trackHeadersFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.cors(Customizer.withDefaults());
-        httpSecurity.csrf((csrf) -> csrf.csrfTokenRepository(new HttpSessionCsrfTokenRepository()));
-        httpSecurity.authorizeHttpRequests(auth -> {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity httpSecurity,
+            TrackHeadersFilter trackHeadersFilter,
+            RequestLogFilter requestLogFilter,
+            JwtAuthenticationFilter jwtAuthenticationFilter
+    ) throws Exception {
 
-            auth.requestMatchers(HttpMethod.OPTIONS, "/**")
-                .permitAll();
-
-            for (String urlPatter : WHITE_LIST_URL) {
-                auth.requestMatchers(urlPatter)
-                    .permitAll();
-            }
-
-            auth.requestMatchers("/api/**")
-                .authenticated();
-
-        });
-
-        httpSecurity.exceptionHandling(exceptionHandling ->
-                                               exceptionHandling.authenticationEntryPoint(
-                                                       new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+        // Stateless session management
+        httpSecurity.sessionManagement(sess ->
+                sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
 
-        // Configure logout
-        httpSecurity.logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_OK);
-                })
-                .invalidateHttpSession(true)
-                .deleteCookies("DFSESSIONID")
-                .deleteCookies("CSRF-TOKEN")
-                .permitAll()
+        // Add filters in correct order
+        httpSecurity.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(trackHeadersFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // CORS
+        httpSecurity.cors(Customizer.withDefaults());
+
+        // Disable CSRF (not needed for stateless JWT)
+        httpSecurity.csrf(csrf -> csrf.disable());
+
+        // Authorization rules
+        httpSecurity.authorizeHttpRequests(auth -> {
+            auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+
+            for (String urlPattern : WHITE_LIST_URL) {
+                auth.requestMatchers(urlPattern).permitAll();
+            }
+
+            auth.requestMatchers("/api/**").authenticated();
+        });
+
+        // Exception handling
+        httpSecurity.exceptionHandling(exceptionHandling ->
+                exceptionHandling.authenticationEntryPoint(
+                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
+                )
         );
 
         return httpSecurity.build();

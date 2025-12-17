@@ -3,13 +3,11 @@ package com.kotanapp.kotanappapi.core.login.models;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
-import java.util.UUID;
-
 @Builder
 public record LoginResponse(
-        @Schema(description = "Access token")
+        @Schema(description = "Access token (JWT)")
         String jwt,
 
-        @Schema(description = "Refresh token")
-        UUID refreshToken) {
+        @Schema(description = "Refresh token (JWT)")
+        String refreshToken) {
 }
