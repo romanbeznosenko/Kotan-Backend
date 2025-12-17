@@ -29,7 +29,7 @@ public class PlayerDAO {
     private String firstName;
 
     @Column(name = "last_name")
-    private String lsatName;
+    private String lastName;
 
     @Column(name = "player_position")
     private PlayerPositionEnum playerPosition;
