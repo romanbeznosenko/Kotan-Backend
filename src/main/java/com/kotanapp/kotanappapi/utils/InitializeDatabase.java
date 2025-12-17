@@ -8,6 +8,7 @@ import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
 import com.kotanapp.kotanappapi.core.match.management.MatchManager;
 import com.kotanapp.kotanappapi.core.match.models.MatchDAO;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
+import com.kotanapp.kotanappapi.core.team.models.Team;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
 import com.kotanapp.kotanappapi.core.user.management.UserMapper;
@@ -76,6 +77,14 @@ public class InitializeDatabase {
             createTeam("Ostrovia Ostrowy", TeamTypeEnum.SENIOR_M);
             createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_M);
 
+            createTeam("AKS SMS II ŁÓDŹ", TeamTypeEnum.SENIOR_W);
+            createTeam("KKS Włókniarz Konstantynów", TeamTypeEnum.SENIOR_W);
+            createTeam("Widzew Łódź SA", TeamTypeEnum.SENIOR_W);
+            createTeam("PTC II Pabianice", TeamTypeEnum.SENIOR_W);
+            createTeam("KKS Olimpia Karsznice", TeamTypeEnum.SENIOR_W);
+            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_W);
+            createTeam("GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W);
+
             log.info("Creating matches...");
             createMatch("MKS Mianów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "24.08.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
             createMatch("Kotan Ozorków", "KS ROSA ROSANÓW", TeamTypeEnum.SENIOR_M, "27.08.2025, 18:00", "Leśna 1 , 95-035 Ozorków");
@@ -90,6 +99,13 @@ public class InitializeDatabase {
             createMatch("Kolejarz Łódź", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "25.10.2025, 14:30", "Srebrzyńska 95 , 94-203 ŁÓDŹ");
             createMatch("Kotan Ozorków", "Termy Uniejów", TeamTypeEnum.SENIOR_M, "08.11.2025, 14:00", "Leśna 1 , 95-035 Ozorków");
             createMatch("LKS MAGNAT Sierpów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "15.11.2025, 14:00", "Sierpów 10A , 95-035 Ozorków");
+
+            createMatch("Kotan Ozorków", "KKS Olimpia Karsznice", TeamTypeEnum.SENIOR_W, "14.09.2025, 14:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Kotan Ozorków", "GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W, "21.09.2025, 11:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("KKS Włókniarz Konstantynów", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "28.09.2025, 11:00", "Wolności 60 , 95-050 Konstantynów");
+            createMatch("Kotan Ozorków", "Widzew Łódź SA", TeamTypeEnum.SENIOR_W, "05.10.2025, 15:30", "Leśna 1 , 95-035 Ozorków");
+            createMatch("AKS SMS II ŁÓDŹ", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "11.10.2025, 17:00", "Milionowa 12 , 93-193 Łódź");
+            createMatch("PTC II Pabianice", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "25.10.2025, 12:30", "gen. Stefana \"Grota\" Roweckiego 3 , 95-200 Pabianice");
         }
     }
 
