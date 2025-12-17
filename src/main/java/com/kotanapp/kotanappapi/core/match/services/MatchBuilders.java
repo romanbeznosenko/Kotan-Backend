@@ -24,6 +24,8 @@ public class MatchBuilders {
                 .awayTeam(awayTeam)
                 .startTime(matchDAO.getStartTime())
                 .location(matchDAO.getLocation())
+                .isFinished(matchDAO.getIsFinished())
+                .result(matchDAO.getResult())
                 .build();
     }
 }

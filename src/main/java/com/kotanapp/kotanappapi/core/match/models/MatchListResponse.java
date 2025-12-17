@@ -22,6 +22,12 @@ public record MatchListResponse(
         Instant startTime,
 
         @Schema(description = "Match's location", example = "Ozorków, ul. Leśna 1")
-        String location
+        String location,
+
+        @Schema(description = "Match's is finished flag", example = "false")
+        Boolean isFinished,
+
+        @Schema(description = "Match's result", example = "1:1")
+        String result
 ) {
 }
