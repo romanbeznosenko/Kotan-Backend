@@ -19,7 +19,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         //Load UserDAO
         registry.addInterceptor(userInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/team/list");
+                .excludePathPatterns("/api/team/list")
+                .excludePathPatterns("/api/match/list");
 
         registry.addInterceptor(internalIntegrationInterceptor)
                 .addPathPatterns("/internal/**");
@@ -29,6 +30,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(userDetailsInterceptor)
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/team/list")
+                .excludePathPatterns("/api/match/list")
                 .addPathPatterns("/internal/**");
     }
 }
