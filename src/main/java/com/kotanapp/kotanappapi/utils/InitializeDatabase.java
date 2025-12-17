@@ -78,6 +78,18 @@ public class InitializeDatabase {
 
             log.info("Creating matches...");
             createMatch("MKS Mianów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "24.08.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
+            createMatch("Kotan Ozorków", "KS ROSA ROSANÓW", TeamTypeEnum.SENIOR_M, "27.08.2025, 18:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Termy II Poddębice", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "31.08.2025, 19:15", "Byczyna , 99-200 Poddębice");
+            createMatch("Kotan Ozorków", "MKP Boruta II Zgierz", TeamTypeEnum.SENIOR_M, "06.09.2025, 15:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Sarnów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "13.09.2025, 15:00", "GLKS Sarnów/Dalików (Dalików, Łęczycka 3)");
+            createMatch("Kotan Ozorków", "KOBRA LEŹNICA", TeamTypeEnum.SENIOR_M, "20.09.2025, 17:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Ostrovia Ostrowy", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "28.09.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
+            createMatch("Kotan Ozorków", "Górnik Łęczyca", TeamTypeEnum.SENIOR_M, "04.10.2025, 16:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Sazan Pęczniew", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "11.10.2025, 15:00", "Świnice Warckie (Świnice Warckie, Szkolna 3)");
+            createMatch("Kotan Ozorków", "SAP PARZĘCZEW", TeamTypeEnum.SENIOR_M, "18.10.2025, 15:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("Kolejarz Łódź", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "25.10.2025, 14:30", "Srebrzyńska 95 , 94-203 ŁÓDŹ");
+            createMatch("Kotan Ozorków", "Termy Uniejów", TeamTypeEnum.SENIOR_M, "08.11.2025, 14:00", "Leśna 1 , 95-035 Ozorków");
+            createMatch("LKS MAGNAT Sierpów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "15.11.2025, 14:00", "Sierpów 10A , 95-035 Ozorków");
         }
     }
 
