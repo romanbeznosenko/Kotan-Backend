@@ -1,6 +1,7 @@
 package com.kotanapp.kotanappapi.core.team.management;
 
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
+import com.kotanapp.kotanappapi.utils.enums.TeamTypeEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +25,9 @@ public class TeamManager {
 
     public Page<TeamDAO> findAll(Pageable pageable) {
         return teamRepository.findAll(pageable);
+    }
+
+    public Optional<TeamDAO> findByNameAndTeamType(String name, TeamTypeEnum teamType) {
+        return teamRepository.findByNameAndTeamType(name, teamType);
     }
 }

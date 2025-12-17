@@ -5,6 +5,8 @@ import com.kotanapp.kotanappapi.core.authAccount.management.AuthAccountMapper;
 import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccount;
 import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccountDAO;
 import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
+import com.kotanapp.kotanappapi.core.match.management.MatchManager;
+import com.kotanapp.kotanappapi.core.match.models.MatchDAO;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
@@ -21,6 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -31,6 +38,17 @@ public class InitializeDatabase {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final TeamManager teamManager;
+    private final MatchManager matchManager;
+
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
+
+    public static Instant toInstant(String dateTime, ZoneId zoneId) {
+        LocalDateTime localDateTime =
+                LocalDateTime.parse(dateTime, FORMATTER);
+
+        return localDateTime.atZone(zoneId).toInstant();
+    }
 
     @PostConstruct
     public void init() {
@@ -56,6 +74,10 @@ public class InitializeDatabase {
             createTeam("Sarnów", TeamTypeEnum.SENIOR_M);
             createTeam("Górnik Łęczyca", TeamTypeEnum.SENIOR_M);
             createTeam("Ostrovia Ostrowy", TeamTypeEnum.SENIOR_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_M);
+
+            log.info("Creating matches...");
+            createMatch("MKS Mianów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "24.08.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
         }
     }
 
@@ -90,5 +112,28 @@ public class InitializeDatabase {
                 .build();
 
         teamManager.saveToDatabase(teamDAO);
+    }
+
+    public void createMatch(String homeTeamName, String awayTeamName, TeamTypeEnum teamType, String startTime, String location){
+        TeamDAO homeTeam = teamManager.findByNameAndTeamType(homeTeamName, teamType).orElse(null);
+        TeamDAO awayTeam = teamManager.findByNameAndTeamType(awayTeamName, teamType).orElse(null);
+
+
+        if (homeTeam != null && awayTeam != null){
+            MatchDAO matchDAO = MatchDAO.builder()
+                    .homeTeam(homeTeam)
+                    .awayTeam(awayTeam)
+                    .startTime(toInstant(startTime))
+                    .location(location)
+                    .isFinished(false)
+                    .isArchived(false)
+                    .build();
+
+            matchManager.saveToDatabase(matchDAO);
+        }
+    }
+
+    private static Instant toInstant(String dateTime) {
+        return toInstant(dateTime, ZoneId.systemDefault());
     }
 }

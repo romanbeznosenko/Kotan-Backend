@@ -26,5 +26,5 @@ public class Match {
     private Instant updatedAt;
 
     private Boolean isArchived;
-    private Boolean archivedAt;
+    private Instant archivedAt;
 }
