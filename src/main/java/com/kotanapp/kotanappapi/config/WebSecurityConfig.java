@@ -33,7 +33,8 @@ public class WebSecurityConfig {
             "/auth/**",
             "/error/**",
             "/ws/**",
-            "/internal/**"
+            "/internal/**",
+            "/api/team/list"
     };
 
     @Bean

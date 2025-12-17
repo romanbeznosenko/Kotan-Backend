@@ -5,12 +5,16 @@ import com.kotanapp.kotanappapi.core.authAccount.management.AuthAccountMapper;
 import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccount;
 import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccountDAO;
 import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
+import com.kotanapp.kotanappapi.core.team.management.TeamManager;
+import com.kotanapp.kotanappapi.core.team.models.Team;
+import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
 import com.kotanapp.kotanappapi.core.user.management.UserMapper;
 import com.kotanapp.kotanappapi.core.user.models.User;
 import com.kotanapp.kotanappapi.core.user.models.UserDAO;
 import com.kotanapp.kotanappapi.core.user.services.UserBuilders;
 import com.kotanapp.kotanappapi.utils.enums.AuthTypeEnum;
+import com.kotanapp.kotanappapi.utils.enums.TeamTypeEnum;
 import com.kotanapp.kotanappapi.utils.enums.UserTypeEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,7 @@ public class InitializeDatabase {
     private final UserManager userManager;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final TeamManager teamManager;
 
     @PostConstruct
     public void init() {
@@ -34,8 +39,24 @@ public class InitializeDatabase {
                 .orElse(null);
 
         if (userDAO == null) {
+            log.info("Creating users...");
             createUser("admin@kotan.local", UserTypeEnum.ADMIN);
             createUser("user@kotan.local", UserTypeEnum.USER);
+
+            log.info("Creating teams...");
+            createTeam("MKP Boruta II Zgierz", TeamTypeEnum.SENIOR_M);
+            createTeam("Termy II Poddębice", TeamTypeEnum.SENIOR_M);
+            createTeam("Sazan Pęczniew", TeamTypeEnum.SENIOR_M);
+            createTeam("KS ROSA ROSANÓW", TeamTypeEnum.SENIOR_M);
+            createTeam("KOBRA LEŹNICA", TeamTypeEnum.SENIOR_M);
+            createTeam("SAP PARZĘCZEW", TeamTypeEnum.SENIOR_M);
+            createTeam("Termy Uniejów", TeamTypeEnum.SENIOR_M);
+            createTeam("Kolejarz Łódź", TeamTypeEnum.SENIOR_M);
+            createTeam("MKS Mianów",  TeamTypeEnum.SENIOR_M);
+            createTeam("LKS MAGNAT Sierpów",  TeamTypeEnum.SENIOR_M);
+            createTeam("Sarnów", TeamTypeEnum.SENIOR_M);
+            createTeam("Górnik Łęczyca", TeamTypeEnum.SENIOR_M);
+            createTeam("Ostrovia Ostrowy", TeamTypeEnum.SENIOR_M);
         }
     }
 
@@ -59,5 +80,16 @@ public class InitializeDatabase {
         authAccountDAO.setUserId(userDAO.getId());
         authAccountDAO.setIsActivated(true);
         authAccountManager.saveToDatabase(authAccountDAO);
+    }
+
+    public void createTeam(String teamName, TeamTypeEnum teamType){
+        TeamDAO teamDAO = TeamDAO.builder()
+                .name(teamName)
+                .logo(null)
+                .teamType(teamType)
+                .isArchived(false)
+                .build();
+
+        teamManager.saveToDatabase(teamDAO);
     }
 }
