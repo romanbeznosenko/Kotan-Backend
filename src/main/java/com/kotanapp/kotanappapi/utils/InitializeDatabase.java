@@ -8,7 +8,6 @@ import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
 import com.kotanapp.kotanappapi.core.match.management.MatchManager;
 import com.kotanapp.kotanappapi.core.match.models.MatchDAO;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
-import com.kotanapp.kotanappapi.core.team.models.Team;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
 import com.kotanapp.kotanappapi.core.user.management.UserMapper;
@@ -86,26 +85,26 @@ public class InitializeDatabase {
             createTeam("GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W);
 
             log.info("Creating matches...");
-            createMatch("MKS Mianów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "24.08.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
-            createMatch("Kotan Ozorków", "KS ROSA ROSANÓW", TeamTypeEnum.SENIOR_M, "27.08.2025, 18:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Termy II Poddębice", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "31.08.2025, 19:15", "Byczyna , 99-200 Poddębice");
-            createMatch("Kotan Ozorków", "MKP Boruta II Zgierz", TeamTypeEnum.SENIOR_M, "06.09.2025, 15:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Sarnów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "13.09.2025, 15:00", "GLKS Sarnów/Dalików (Dalików, Łęczycka 3)");
-            createMatch("Kotan Ozorków", "KOBRA LEŹNICA", TeamTypeEnum.SENIOR_M, "20.09.2025, 17:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Ostrovia Ostrowy", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "28.09.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno");
-            createMatch("Kotan Ozorków", "Górnik Łęczyca", TeamTypeEnum.SENIOR_M, "04.10.2025, 16:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Sazan Pęczniew", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "11.10.2025, 15:00", "Świnice Warckie (Świnice Warckie, Szkolna 3)");
-            createMatch("Kotan Ozorków", "SAP PARZĘCZEW", TeamTypeEnum.SENIOR_M, "18.10.2025, 15:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Kolejarz Łódź", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "25.10.2025, 14:30", "Srebrzyńska 95 , 94-203 ŁÓDŹ");
-            createMatch("Kotan Ozorków", "Termy Uniejów", TeamTypeEnum.SENIOR_M, "08.11.2025, 14:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("LKS MAGNAT Sierpów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "15.11.2025, 14:00", "Sierpów 10A , 95-035 Ozorków");
+            createMatch("MKS Mianów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "24.08.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno", "6:2");
+            createMatch("Kotan Ozorków", "KS ROSA ROSANÓW", TeamTypeEnum.SENIOR_M, "27.08.2025, 18:00", "Leśna 1 , 95-035 Ozorków", "1:4");
+            createMatch("Termy II Poddębice", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "31.08.2025, 19:15", "Byczyna , 99-200 Poddębice", "6:1");
+            createMatch("Kotan Ozorków", "MKP Boruta II Zgierz", TeamTypeEnum.SENIOR_M, "06.09.2025, 15:00", "Leśna 1 , 95-035 Ozorków", "2:16");
+            createMatch("Sarnów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "13.09.2025, 15:00", "GLKS Sarnów/Dalików (Dalików, Łęczycka 3)", "1:1");
+            createMatch("Kotan Ozorków", "KOBRA LEŹNICA", TeamTypeEnum.SENIOR_M, "20.09.2025, 17:00", "Leśna 1 , 95-035 Ozorków", "1:1");
+            createMatch("Ostrovia Ostrowy", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "28.09.2025, 14:00", "bł. ks. Michała Oziębłowskiego 1 , 99-300 Kutno", "1:0");
+            createMatch("Kotan Ozorków", "Górnik Łęczyca", TeamTypeEnum.SENIOR_M, "04.10.2025, 16:00", "Leśna 1 , 95-035 Ozorków", "1:1");
+            createMatch("Sazan Pęczniew", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "11.10.2025, 15:00", "Świnice Warckie (Świnice Warckie, Szkolna 3)", "10:1");
+            createMatch("Kotan Ozorków", "SAP PARZĘCZEW", TeamTypeEnum.SENIOR_M, "18.10.2025, 15:00", "Leśna 1 , 95-035 Ozorków", "2:6");
+            createMatch("Kolejarz Łódź", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "25.10.2025, 14:30", "Srebrzyńska 95 , 94-203 ŁÓDŹ", "5:1");
+            createMatch("Kotan Ozorków", "Termy Uniejów", TeamTypeEnum.SENIOR_M, "08.11.2025, 14:00", "Leśna 1 , 95-035 Ozorków", "0:0");
+            createMatch("LKS MAGNAT Sierpów", "Kotan Ozorków", TeamTypeEnum.SENIOR_M, "15.11.2025, 14:00", "Sierpów 10A , 95-035 Ozorków", "1:0");
 
-            createMatch("Kotan Ozorków", "KKS Olimpia Karsznice", TeamTypeEnum.SENIOR_W, "14.09.2025, 14:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("Kotan Ozorków", "GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W, "21.09.2025, 11:00", "Leśna 1 , 95-035 Ozorków");
-            createMatch("KKS Włókniarz Konstantynów", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "28.09.2025, 11:00", "Wolności 60 , 95-050 Konstantynów");
-            createMatch("Kotan Ozorków", "Widzew Łódź SA", TeamTypeEnum.SENIOR_W, "05.10.2025, 15:30", "Leśna 1 , 95-035 Ozorków");
-            createMatch("AKS SMS II ŁÓDŹ", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "11.10.2025, 17:00", "Milionowa 12 , 93-193 Łódź");
-            createMatch("PTC II Pabianice", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "25.10.2025, 12:30", "gen. Stefana \"Grota\" Roweckiego 3 , 95-200 Pabianice");
+            createMatch("Kotan Ozorków", "KKS Olimpia Karsznice", TeamTypeEnum.SENIOR_W, "14.09.2025, 14:00", "Leśna 1 , 95-035 Ozorków", "2:5");
+            createMatch("Kotan Ozorków", "GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W, "21.09.2025, 11:00", "Leśna 1 , 95-035 Ozorków", "3:1");
+            createMatch("KKS Włókniarz Konstantynów", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "28.09.2025, 11:00", "Wolności 60 , 95-050 Konstantynów", "2:2");
+            createMatch("Kotan Ozorków", "Widzew Łódź SA", TeamTypeEnum.SENIOR_W, "05.10.2025, 15:30", "Leśna 1 , 95-035 Ozorków", "1:4");
+            createMatch("AKS SMS II ŁÓDŹ", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "11.10.2025, 17:00", "Milionowa 12 , 93-193 Łódź", "16:0");
+            createMatch("PTC II Pabianice", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "25.10.2025, 12:30", "gen. Stefana \"Grota\" Roweckiego 3 , 95-200 Pabianice", "9:0");
         }
     }
 
@@ -142,7 +141,7 @@ public class InitializeDatabase {
         teamManager.saveToDatabase(teamDAO);
     }
 
-    public void createMatch(String homeTeamName, String awayTeamName, TeamTypeEnum teamType, String startTime, String location){
+    public void createMatch(String homeTeamName, String awayTeamName, TeamTypeEnum teamType, String startTime, String location, String result){
         TeamDAO homeTeam = teamManager.findByNameAndTeamType(homeTeamName, teamType).orElse(null);
         TeamDAO awayTeam = teamManager.findByNameAndTeamType(awayTeamName, teamType).orElse(null);
 
@@ -153,7 +152,8 @@ public class InitializeDatabase {
                     .awayTeam(awayTeam)
                     .startTime(toInstant(startTime))
                     .location(location)
-                    .isFinished(false)
+                    .isFinished(result != null)
+                    .result(result)
                     .isArchived(false)
                     .build();
 
