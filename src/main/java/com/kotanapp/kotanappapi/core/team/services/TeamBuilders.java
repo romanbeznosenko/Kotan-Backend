@@ -1,8 +1,6 @@
 package com.kotanapp.kotanappapi.core.team.services;
 
-import com.kotanapp.kotanappapi.core.team.models.Team;
-import com.kotanapp.kotanappapi.core.team.models.TeamId;
-import com.kotanapp.kotanappapi.core.team.models.TeamRequest;
+import com.kotanapp.kotanappapi.core.team.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +13,14 @@ public class TeamBuilders {
                 .logo(null)
                 .teamType(request.teamType())
                 .isArchived(false)
+                .build();
+    }
+
+    public static TeamListResponse buildListResponse(TeamDAO teamDAO){
+        return TeamListResponse.builder()
+                .id(teamDAO.getId())
+                .name(teamDAO.getName())
+                .teamType(teamDAO.getTeamType())
                 .build();
     }
 }
