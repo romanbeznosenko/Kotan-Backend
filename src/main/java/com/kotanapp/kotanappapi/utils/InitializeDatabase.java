@@ -34,23 +34,24 @@ public class InitializeDatabase {
                 .orElse(null);
 
         if (userDAO == null) {
-            createUser();
+            createUser("admin@kotan.local", UserTypeEnum.ADMIN);
+            createUser("user@kotan.local", UserTypeEnum.USER);
         }
     }
 
-    public void createUser(){
+    public void createUser(String email, UserTypeEnum userType){
         User user = UserBuilders.buildUserFromEmail(
-                "admin@kotan.local",
+                email,
                 "Jan",
                 "Kowalski",
-                UserTypeEnum.ADMIN
+                userType
         );
 
         UserDAO userDAO = userMapper.mapToEntity(user, new CycleAvoidingMappingContext());
         userDAO = userManager.saveToDatabase(userDAO);
 
         AuthAccount authAccount = AuthAccountBuilders.buildAuthAccount(
-                "admin@kotan.local",
+                email,
                 passwordEncoder.encode("admin"),
                 AuthTypeEnum.EMAIL
         );
