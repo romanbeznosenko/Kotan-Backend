@@ -1,9 +1,11 @@
 package com.kotanapp.kotanappapi.files.services;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -61,16 +63,11 @@ public class StorageService {
         s3Client.createBucket(b -> b.bucket(BUCKET_NAME));
     }
 
-    public PutObjectResponse uploadFile(String key, UUID organizationId, String contentType, ByteArrayOutputStream stream) throws IOException {
-
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("organization_id", organizationId.toString());
-
+    public PutObjectResponse uploadFile(String key, String contentType, ByteArrayOutputStream stream) throws IOException {
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                                                             .bucket(BUCKET_NAME)
                                                             .contentType(contentType)
                                                             .key(key)
-                                                            .metadata(metadata)
                                                             .build();
 
         try (stream; InputStream in = new ByteArrayInputStream(stream.toByteArray())) {
@@ -126,4 +123,8 @@ public class StorageService {
         }
     }
 
+    public String generateStorageKey(UUID id, MultipartFile file, String folder) {
+        String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+        return "%s/%s/%s.%s".formatted(id, folder, UUID.randomUUID(), fileExtension);
+    }
 }

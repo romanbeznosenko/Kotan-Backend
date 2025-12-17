@@ -30,4 +30,8 @@ public class TeamManager {
     public Optional<TeamDAO> findByNameAndTeamType(String name, TeamTypeEnum teamType) {
         return teamRepository.findByNameAndTeamType(name, teamType);
     }
+
+    public void deleteTeam(UUID teamId) {
+        teamRepository.deleteById(teamId);
+    }
 }
