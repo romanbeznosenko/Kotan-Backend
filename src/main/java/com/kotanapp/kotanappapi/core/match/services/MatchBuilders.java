@@ -1,8 +1,7 @@
 package com.kotanapp.kotanappapi.core.match.services;
 
-import com.kotanapp.kotanappapi.core.match.models.Match;
-import com.kotanapp.kotanappapi.core.match.models.MatchId;
-import com.kotanapp.kotanappapi.core.match.models.MatchRequest;
+import com.kotanapp.kotanappapi.core.match.models.*;
+import com.kotanapp.kotanappapi.core.team.models.TeamMatchResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +14,16 @@ public class MatchBuilders {
                 .location(matchRequest.location())
                 .isFinished(false)
                 .isArchived(false)
+                .build();
+    }
+
+    public static MatchListResponse buildMatchListResponse(MatchDAO matchDAO, TeamMatchResponse homeTeam, TeamMatchResponse awayTeam) {
+        return MatchListResponse.builder()
+                .id(matchDAO.getId())
+                .homeTeam(homeTeam)
+                .awayTeam(awayTeam)
+                .startTime(matchDAO.getStartTime())
+                .location(matchDAO.getLocation())
                 .build();
     }
 }

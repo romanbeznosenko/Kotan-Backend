@@ -23,4 +23,11 @@ public class TeamBuilders {
                 .teamType(teamDAO.getTeamType())
                 .build();
     }
+
+    public static TeamMatchResponse buildMatchResponse(TeamDAO teamDAO){
+        return TeamMatchResponse.builder()
+                .name(teamDAO.getName())
+                .logo(teamDAO.getLogo())
+                .build();
+    }
 }
