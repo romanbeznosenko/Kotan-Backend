@@ -7,6 +7,8 @@ import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccountDAO;
 import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
 import com.kotanapp.kotanappapi.core.match.management.MatchManager;
 import com.kotanapp.kotanappapi.core.match.models.MatchDAO;
+import com.kotanapp.kotanappapi.core.player.management.PlayerManager;
+import com.kotanapp.kotanappapi.core.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
@@ -15,6 +17,7 @@ import com.kotanapp.kotanappapi.core.user.models.User;
 import com.kotanapp.kotanappapi.core.user.models.UserDAO;
 import com.kotanapp.kotanappapi.core.user.services.UserBuilders;
 import com.kotanapp.kotanappapi.utils.enums.AuthTypeEnum;
+import com.kotanapp.kotanappapi.utils.enums.PlayerPositionEnum;
 import com.kotanapp.kotanappapi.utils.enums.TeamTypeEnum;
 import com.kotanapp.kotanappapi.utils.enums.UserTypeEnum;
 import jakarta.annotation.PostConstruct;
@@ -39,6 +42,7 @@ public class InitializeDatabase {
     private final PasswordEncoder passwordEncoder;
     private final TeamManager teamManager;
     private final MatchManager matchManager;
+    private final PlayerManager playerManager;
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
@@ -105,6 +109,33 @@ public class InitializeDatabase {
             createMatch("Kotan Ozorków", "Widzew Łódź SA", TeamTypeEnum.SENIOR_W, "05.10.2025, 15:30", "Leśna 1 , 95-035 Ozorków", "1:4");
             createMatch("AKS SMS II ŁÓDŹ", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "11.10.2025, 17:00", "Milionowa 12 , 93-193 Łódź", "16:0");
             createMatch("PTC II Pabianice", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "25.10.2025, 12:30", "gen. Stefana \"Grota\" Roweckiego 3 , 95-200 Pabianice", "9:0");
+
+            log.info("Creating players...");
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Zuzanna", "Andrzejczak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Bartczak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Zuzia", "Chilarska", PlayerPositionEnum.STRIKER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Domańska", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Lena", "Gawęda", PlayerPositionEnum.GOALKEEPER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Zuzanna", "Gibka", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Nadia", "Janasiak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Amelia", "Marczak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Patrycja", "Mikołajczyk", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Edyta", "Pietrzak", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Maria", "Rudnicka", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Maria", "Zamolska", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Izydorczyk", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Julia", "Malinowska", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Pola", "Łuczak", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Nina", "Strzelecka", PlayerPositionEnum.STRIKER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Yuliia", "Luzhetska", PlayerPositionEnum.GOALKEEPER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Pawlak", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Róża", "Pawlak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Karolina", "Gapsa", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Julianna", "Stańczyk", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Ewa", "Magdziarz", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Adrianna", "Kurzawska", PlayerPositionEnum.STRIKER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Weronika", "Wiktorowska", PlayerPositionEnum.MIDFIELDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Łuczak", PlayerPositionEnum.DEFENDER);
         }
     }
 
@@ -163,5 +194,28 @@ public class InitializeDatabase {
 
     private static Instant toInstant(String dateTime) {
         return toInstant(dateTime, ZoneId.systemDefault());
+    }
+
+    private void createPlayer(
+            String teamName,
+            TeamTypeEnum teamType,
+            String firstName,
+            String lastName,
+            PlayerPositionEnum playerPosition
+    ){
+        TeamDAO teamDAO = teamManager.findByNameAndTeamType(teamName, teamType).orElse(null);
+
+        if (teamDAO != null){
+            PlayerDAO playerDAO = PlayerDAO.builder()
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .avatar(null)
+                    .playerPosition(playerPosition)
+                    .team(teamDAO)
+                    .isArchived(false)
+                    .build();
+
+            playerManager.saveToDatabase(playerDAO);
+        }
     }
 }
