@@ -20,6 +20,7 @@ public class Match {
     private Instant startTime;
     private String location;
     private String result;
+    private Boolean isFinished;
 
     private Instant createdAt;
     private Instant updatedAt;

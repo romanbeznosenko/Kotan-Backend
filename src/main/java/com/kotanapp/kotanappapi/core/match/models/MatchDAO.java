@@ -40,6 +40,9 @@ public class MatchDAO {
     @Column(name = "result")
     private String result;
 
+    @Column(name = "is_finished")
+    private Boolean isFinished;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
