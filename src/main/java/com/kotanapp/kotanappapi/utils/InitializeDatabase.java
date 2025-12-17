@@ -6,7 +6,6 @@ import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccount;
 import com.kotanapp.kotanappapi.core.authAccount.models.AuthAccountDAO;
 import com.kotanapp.kotanappapi.core.authAccount.services.AuthAccountBuilders;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
-import com.kotanapp.kotanappapi.core.team.models.Team;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.core.user.management.UserManager;
 import com.kotanapp.kotanappapi.core.user.management.UserMapper;
