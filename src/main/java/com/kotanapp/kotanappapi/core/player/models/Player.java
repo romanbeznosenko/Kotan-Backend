@@ -9,19 +9,19 @@ import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Player {
-    private UUID playerId;
+    private PlayerId playerId;
     private String firstName;
     private String lastName;
     private PlayerPositionEnum playerPosition;
     private Team team;
     private LocalDate birthDate;
+    private String avatar;
 
     private Instant createdAt;
     private Instant updatedAt;

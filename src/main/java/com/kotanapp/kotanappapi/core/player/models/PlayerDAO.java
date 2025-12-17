@@ -41,6 +41,9 @@ public class PlayerDAO {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
