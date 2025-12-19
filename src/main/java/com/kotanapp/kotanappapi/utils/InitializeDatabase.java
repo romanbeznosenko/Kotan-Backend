@@ -118,7 +118,7 @@ public class InitializeDatabase {
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Lena", "Gawęda", PlayerPositionEnum.GOALKEEPER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Zuzanna", "Gibka", PlayerPositionEnum.DEFENDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Nadia", "Janasiak", PlayerPositionEnum.DEFENDER);
-            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Amelia", "Marczak", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Amelia", "Marczak", PlayerPositionEnum.MIDFIELDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Patrycja", "Mikołajczyk", PlayerPositionEnum.DEFENDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Edyta", "Pietrzak", PlayerPositionEnum.MIDFIELDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Maria", "Rudnicka", PlayerPositionEnum.MIDFIELDER);
@@ -131,7 +131,7 @@ public class InitializeDatabase {
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Wiktoria", "Pawlak", PlayerPositionEnum.MIDFIELDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Róża", "Pawlak", PlayerPositionEnum.DEFENDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Karolina", "Gapsa", PlayerPositionEnum.DEFENDER);
-            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Julianna", "Stańczyk", PlayerPositionEnum.DEFENDER);
+            createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Julianna", "Stańczyk", PlayerPositionEnum.GOALKEEPER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Ewa", "Magdziarz", PlayerPositionEnum.DEFENDER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Adrianna", "Kurzawska", PlayerPositionEnum.STRIKER);
             createPlayer("Kotan Ozorków", TeamTypeEnum.SENIOR_W, "Weronika", "Wiktorowska", PlayerPositionEnum.MIDFIELDER);
