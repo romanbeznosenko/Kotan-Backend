@@ -1,7 +1,6 @@
 package com.kotanapp.kotanappapi.core.player.services;
 
 import com.kotanapp.kotanappapi.core.player.management.PlayerManager;
-import com.kotanapp.kotanappapi.core.player.management.PlayerRepository;
 import com.kotanapp.kotanappapi.core.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.core.player.models.PlayerListResponse;
 import com.kotanapp.kotanappapi.core.player.models.PlayerPageResponse;
