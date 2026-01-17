@@ -36,7 +36,9 @@ public class WebSecurityConfig {
             "/internal/**",
             "/api/team/list",
             "api/match/list",
-            "api/team/{teamId}/player/list"
+            "api/team/{teamId}/player/list",
+            "api/news/list",
+            "api/news/{newsId}"
     };
 
     @Bean

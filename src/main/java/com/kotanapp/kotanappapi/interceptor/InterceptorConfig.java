@@ -10,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     private final UserDetailsInterceptor userDetailsInterceptor;
     private final UserInterceptor userInterceptor;
-    private final InternalIntegrationInterceptor internalIntegrationInterceptor;
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -21,11 +19,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/**")
                 .excludePathPatterns("/api/team/list")
                 .excludePathPatterns("/api/match/list")
-                .excludePathPatterns("/api/team/{teamId}/player/list");
-
-        registry.addInterceptor(internalIntegrationInterceptor)
-                .addPathPatterns("/internal/**");
-
+                .excludePathPatterns("/api/team/{teamId}/player/list")
+                .excludePathPatterns("/api/news/list")
+                .excludePathPatterns("/api/news/{newsId}");
 
         //Build userDetails for SecurityContext
         registry.addInterceptor(userDetailsInterceptor)
@@ -33,6 +29,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/team/list")
                 .excludePathPatterns("/api/match/list")
                 .excludePathPatterns("/api/team/{teamId}/player/list")
+                .excludePathPatterns("/api/news/list")
+                .excludePathPatterns("/api/news/{newsId}")
                 .addPathPatterns("/internal/**");
     }
 }
