@@ -69,9 +69,11 @@ public class NewsController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<CustomResponse<NewsListPageResponse>> listNews(
             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(name = "limit", required = false, defaultValue = "10") int limit
+            @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "tag", required = false) List<UUID> tagsId
     ) {
-        NewsListPageResponse response = newsListService.listAllNews(page, limit);
+        NewsListPageResponse response = newsListService.listAllNews(page, limit, title, tagsId);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
