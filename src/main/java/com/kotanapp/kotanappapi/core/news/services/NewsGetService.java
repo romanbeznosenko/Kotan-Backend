@@ -4,11 +4,14 @@ import com.kotanapp.kotanappapi.core.news.management.NewsManager;
 import com.kotanapp.kotanappapi.core.news.management.NewsNotFoundException;
 import com.kotanapp.kotanappapi.core.news.models.NewsDAO;
 import com.kotanapp.kotanappapi.core.news.models.NewsResponse;
+import com.kotanapp.kotanappapi.core.tags.models.TagResponse;
+import com.kotanapp.kotanappapi.core.tags.services.TagBuilders;
 import com.kotanapp.kotanappapi.files.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,6 +27,10 @@ public class NewsGetService {
         NewsDAO newsDAO = newsManager.findById(id)
                 .orElseThrow(NewsNotFoundException::new);
 
-        return NewsBuilders.buildNewsResponse(newsDAO, storageService);
+        List<TagResponse> tags = newsDAO.getTags().stream()
+                .map(TagBuilders::buildResponse)
+                .toList();
+
+        return NewsBuilders.buildNewsResponse(newsDAO, storageService, tags);
     }
 }

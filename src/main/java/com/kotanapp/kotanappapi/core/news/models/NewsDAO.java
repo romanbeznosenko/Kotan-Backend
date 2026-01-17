@@ -36,8 +36,12 @@ public class NewsDAO {
     @Column(name = "banner")
     private String banner;
 
-    @ManyToOne
-    @JoinColumn(name = "tag_id")
+    @ManyToMany
+    @JoinTable(
+            name = "news_tags",
+            joinColumns = @JoinColumn(name = "news_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<TagDAO> tags;
 
     @CreationTimestamp

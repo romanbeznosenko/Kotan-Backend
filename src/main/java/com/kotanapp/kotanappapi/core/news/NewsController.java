@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,9 +38,10 @@ public class NewsController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<Void>> createNews(
             @RequestPart(name = "request") @Valid NewsRequest request,
-            @RequestPart(name = "file") MultipartFile file
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "tag") List<UUID> tagsId
     ) throws IOException {
-        newsCreateService.createNews(request, file);
+        newsCreateService.createNews(request, file, tagsId);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
