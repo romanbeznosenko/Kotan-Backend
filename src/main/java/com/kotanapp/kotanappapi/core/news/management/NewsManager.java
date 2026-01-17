@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class NewsManager {
@@ -17,5 +20,9 @@ public class NewsManager {
 
     public Page<NewsDAO> findAll(Pageable pageable) {
         return newsRepository.findAll(pageable);
+    }
+
+    public Optional<NewsDAO> findById(UUID id) {
+        return newsRepository.findById(id);
     }
 }
