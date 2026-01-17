@@ -1,10 +1,16 @@
 package com.kotanapp.kotanappapi.core.news.models;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 
 import java.time.Instant;
+import java.util.UUID;
 
+@Builder
 public record NewsListResponse(
+        @Schema(description = "News' assigned id", example = "1")
+        UUID id,
+
         @Schema(description = "News' title", example = "KOTAN GIRLS | ...)")
         String title,
 
