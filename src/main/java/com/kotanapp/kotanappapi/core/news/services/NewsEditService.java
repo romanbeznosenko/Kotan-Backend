@@ -29,14 +29,14 @@ public class NewsEditService {
         news = updateNews(news, request);
 
         newsDAO = newsMapper.mapToEntity(news, new CycleAvoidingMappingContext());
-
+        log.info("Edited news title: {}", newsDAO.getTitle());
         newsManager.saveToDatabase(newsDAO);
     }
 
     private News updateNews(News news, NewsRequest request){
-        news.setTitle(news.getTitle());
-        news.setShortDescription(news.getShortDescription());
-        news.setContent(news.getContent());
+        news.setTitle(request.title());
+        news.setShortDescription(request.shortDescription());
+        news.setContent(request.content());
 
         return news;
     }

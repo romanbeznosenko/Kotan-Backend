@@ -6,6 +6,7 @@ import com.kotanapp.kotanappapi.core.news.models.NewsResponse;
 import com.kotanapp.kotanappapi.core.news.services.*;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,15 +29,15 @@ public class NewsController {
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
-    @PostMapping(value = {"", "/"}, consumes = "multipart/form-data")
+    @PostMapping(value = {"", "/"}, consumes = {"multipart/form-data"})
     @Operation(
             description = "Create news",
             summary = "Create news"
     )
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<Void>> createNews(
-            @RequestParam(name = "request") NewsRequest request,
-            @RequestParam(name = "file") MultipartFile file
+            @RequestPart(name = "request") @Valid NewsRequest request,
+            @RequestPart(name = "file") MultipartFile file
     ) throws IOException {
         newsCreateService.createNews(request, file);
 
@@ -51,7 +52,7 @@ public class NewsController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<Void>> editNews(
             @PathVariable(name = "newsId") UUID newsId,
-            @RequestParam(name = "request") NewsRequest request
+            @RequestBody @Valid NewsRequest request
     ) {
         newsEditService.editNews(request, newsId);
 
@@ -95,7 +96,7 @@ public class NewsController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<Void>> uploadBanner(
             @PathVariable(name = "newsId") UUID newsId,
-            @RequestParam(name = "file") MultipartFile file
+            @RequestPart(name = "file") MultipartFile file
     ) throws IOException {
         newsUploadBannerService.uploadBanner(newsId, file);
 
