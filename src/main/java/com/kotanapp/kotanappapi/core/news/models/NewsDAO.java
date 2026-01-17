@@ -1,11 +1,13 @@
 package com.kotanapp.kotanappapi.core.news.models;
 
+import com.kotanapp.kotanappapi.core.tags.models.TagDAO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,6 +35,10 @@ public class NewsDAO {
 
     @Column(name = "banner")
     private String banner;
+
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    private List<TagDAO> tags;
 
     @CreationTimestamp
     @Column(name = "created_at")
