@@ -1,6 +1,6 @@
 package com.kotanapp.kotanappapi.core.tags.management;
 
-import com.kotanapp.kotanappapi.core.tags.modesl.TagDAO;
+import com.kotanapp.kotanappapi.core.tags.models.TagDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

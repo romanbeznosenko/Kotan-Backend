@@ -1,4 +1,4 @@
-package com.kotanapp.kotanappapi.core.tags.modesl;
+package com.kotanapp.kotanappapi.core.tags.models;
 
 import jakarta.persistence.*;
 import lombok.*;

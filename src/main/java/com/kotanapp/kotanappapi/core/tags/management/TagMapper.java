@@ -1,8 +1,8 @@
 package com.kotanapp.kotanappapi.core.tags.management;
 
-import com.kotanapp.kotanappapi.core.tags.modesl.Tag;
-import com.kotanapp.kotanappapi.core.tags.modesl.TagDAO;
-import com.kotanapp.kotanappapi.core.tags.modesl.TagId;
+import com.kotanapp.kotanappapi.core.tags.models.Tag;
+import com.kotanapp.kotanappapi.core.tags.models.TagDAO;
+import com.kotanapp.kotanappapi.core.tags.models.TagId;
 import com.kotanapp.kotanappapi.utils.CycleAvoidingMappingContext;
 import org.mapstruct.*;
 
