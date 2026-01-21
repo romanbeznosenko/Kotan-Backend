@@ -185,6 +185,86 @@ public class InitializeDatabase {
             createPlayer(TeamTypeEnum.ORLIK_M, "Tymoteusz", "Wójcicki", PlayerPositionEnum.STRIKER);
             createPlayer(TeamTypeEnum.ORLIK_M, "Jan", "Kacprzak", PlayerPositionEnum.STRIKER);
 
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Tymoteusz", "Gryc", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Ksawery", "Izydorczyk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Julian", "Jabłoński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Filip", "Kmieciak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Jakub", "Kowalczyk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Wojciech", "Lubczyński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Karol", "Marczewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Michał", "Marczewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Adrian", "Moruzgała", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Szymon", "Mroziak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Hubert", "Olczak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Miłosz", "Olczak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Miłosz", "Pisera", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Milan", "Plewiński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Jakub", "Raszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Dawid", "Rogala", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Władysław", "Rybski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Aleksander", "Rzeźniczak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Bartłomiej", "Sajewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Łukasz", "Strzałka", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Igor", "Tomczak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Igor", "Waliszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Piotr", "Wojna", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.TRAMPKARZ_M, "Antoni", "Józefowicz", PlayerPositionEnum.STRIKER);
+
+            createPlayer(TeamTypeEnum.ZAK_M, "Zofia", "Derulska", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Antoni", "Grabowski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Szymon", "Jankowiak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Jan", "Kwiatkowski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Natan", "Miniak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Franciszek", "Pietruszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Wojciech", "Pietruszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Aleksander", "Rechtanek", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Dawid", "Rybacki", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Tymoteusz", "Rybnik", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Marcel", "Schlüter", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Adam", "Skonieczny", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Szymon", "Sowiński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Iga", "Szubert", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Julian", "Szubert", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Wojciech", "Terebiński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ZAK_M, "Karol", "Trzciński", PlayerPositionEnum.STRIKER);
+
+            createPlayer(TeamTypeEnum.SENIOR_M, "Roman", "Beznosenko", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Radosław", "Dąbrowski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Jakub", "Dorcz", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Łukasz", "Dwornicki", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Dawid", "Gajda", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Kacper", "Hajduk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Artur", "Ignaczak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Patryk", "Jakóbiak", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Fabian", "Jaroszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Przemysław", "Kołodziejczyk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Tomasz", "Kołodziejczyk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Krzysztof", "Kopka", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Arkadiusz", "Muszyński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Piotr", "Osinski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Bartłomiej", "Rybacki", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Jakub", "Sibilski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Szymon", "Smakowski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Dawid", "Stelmaszewski", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Dawid", "Surdy", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Adrian", "Wójcicki", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Klaudiusz", "Zając", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Mateusz", "Jabłoński", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.SENIOR_M, "Brandon", "Gielnik", PlayerPositionEnum.STRIKER);
+
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Lena", "Barańska", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Maria", "Barylska", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Ida", "Gajda", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Joanna", "Mikołajczyk", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Malwina", "Sypniewska", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Magda", "Wróbel", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Iga", "Szubert", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Brygida", "Wachowicz", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Anhelina", "Kit", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Julia", "Kwiatkowska", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Amelia", "Horna", PlayerPositionEnum.STRIKER);
+            createPlayer(TeamTypeEnum.ORLICZKI_W, "Aleksandra", "Barylska", PlayerPositionEnum.STRIKER);
+
         }
     }
 

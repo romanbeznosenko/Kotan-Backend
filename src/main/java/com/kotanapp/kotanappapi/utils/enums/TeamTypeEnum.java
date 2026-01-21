@@ -5,7 +5,8 @@ public enum TeamTypeEnum {
     TRAMPKARZ_M,
     MLODZIK_M,
     ORLIK_M,
-    GNOME,
+    ZAK_M,
     SENIOR_W,
-    JUNIOR_W
+    JUNIOR_W,
+    ORLICZKI_W
 }
