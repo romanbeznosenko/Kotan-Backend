@@ -78,14 +78,14 @@ public class InitializeDatabase {
 //            createTeam("Sarnów", TeamTypeEnum.SENIOR_M);
 //            createTeam("Górnik Łęczyca", TeamTypeEnum.SENIOR_M);
 //            createTeam("Ostrovia Ostrowy", TeamTypeEnum.SENIOR_M);
-            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_M);
+
 
 //            createTeam("AKS SMS II ŁÓDŹ", TeamTypeEnum.SENIOR_W);
 //            createTeam("KKS Włókniarz Konstantynów", TeamTypeEnum.SENIOR_W);
 //            createTeam("Widzew Łódź SA", TeamTypeEnum.SENIOR_W);
 //            createTeam("PTC II Pabianice", TeamTypeEnum.SENIOR_W);
 //            createTeam("KKS Olimpia Karsznice", TeamTypeEnum.SENIOR_W);
-            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_W);
+
 //            createTeam("GKS KORONA Stary Dwór", TeamTypeEnum.SENIOR_W);
 
 //            log.info("Creating matches...");
@@ -109,6 +109,15 @@ public class InitializeDatabase {
 //            createMatch("Kotan Ozorków", "Widzew Łódź SA", TeamTypeEnum.SENIOR_W, "05.10.2025, 15:30", "Leśna 1 , 95-035 Ozorków", "1:4");
 //            createMatch("AKS SMS II ŁÓDŹ", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "11.10.2025, 17:00", "Milionowa 12 , 93-193 Łódź", "16:0");
 //            createMatch("PTC II Pabianice", "Kotan Ozorków", TeamTypeEnum.SENIOR_W, "25.10.2025, 12:30", "gen. Stefana \"Grota\" Roweckiego 3 , 95-200 Pabianice", "9:0");
+
+            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.TRAMPKARZ_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.MLODZIK_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.ORLIK_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.ZAK_M);
+            createTeam("Kotan Ozorków", TeamTypeEnum.SENIOR_W);
+            createTeam("Kotan Ozorków", TeamTypeEnum.JUNIOR_W);
+            createTeam("Kotan Ozorków", TeamTypeEnum.ORLICZKI_W);
 
             log.info("Creating players...");
             createPlayer(TeamTypeEnum.SENIOR_W, "Zuzanna", "Andrzejczak", PlayerPositionEnum.DEFENDER);

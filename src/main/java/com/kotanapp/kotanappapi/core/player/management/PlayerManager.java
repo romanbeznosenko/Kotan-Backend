@@ -9,6 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PlayerManager {
@@ -25,5 +28,9 @@ public class PlayerManager {
         Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
 
         return playerRepository.findAll(spec, pageable);
+    }
+
+    public Optional<PlayerDAO> findById(UUID playerId) {
+        return playerRepository.findById(playerId);
     }
 }

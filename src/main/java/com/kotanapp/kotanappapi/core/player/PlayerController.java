@@ -4,6 +4,7 @@ import com.kotanapp.kotanappapi.core.player.models.PlayerPageResponse;
 import com.kotanapp.kotanappapi.core.player.models.PlayerRequest;
 import com.kotanapp.kotanappapi.core.player.services.PlayerCreateService;
 import com.kotanapp.kotanappapi.core.player.services.PlayerListTeamService;
+import com.kotanapp.kotanappapi.core.player.services.PlayerUpdateAvatarService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -12,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -21,6 +24,7 @@ import java.util.UUID;
 public class PlayerController {
     private final PlayerCreateService playerCreateService;
     private final PlayerListTeamService playerListTeamService;
+    private final PlayerUpdateAvatarService playerUpdateAvatarService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -51,5 +55,20 @@ public class PlayerController {
         PlayerPageResponse response = playerListTeamService.listPlayersByTeam(teamId);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{playerId}/avatar", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Update player's avatar",
+            summary = "Update player's avatar"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> updatePlayerAvatar(
+            @PathVariable(name = "playerId") UUID playerId,
+            @RequestPart(name = "file") MultipartFile file
+            ) throws IOException {
+        playerUpdateAvatarService.updatePlayerAvatar(playerId, file);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
