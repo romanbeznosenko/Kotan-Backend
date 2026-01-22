@@ -2,10 +2,8 @@ package com.kotanapp.kotanappapi.core.player;
 
 import com.kotanapp.kotanappapi.core.player.models.PlayerPageResponse;
 import com.kotanapp.kotanappapi.core.player.models.PlayerRequest;
-import com.kotanapp.kotanappapi.core.player.services.PlayerCreateService;
-import com.kotanapp.kotanappapi.core.player.services.PlayerEditService;
-import com.kotanapp.kotanappapi.core.player.services.PlayerListTeamService;
-import com.kotanapp.kotanappapi.core.player.services.PlayerUpdateAvatarService;
+import com.kotanapp.kotanappapi.core.player.models.PlayerResponse;
+import com.kotanapp.kotanappapi.core.player.services.*;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -27,6 +25,7 @@ public class PlayerController {
     private final PlayerListTeamService playerListTeamService;
     private final PlayerUpdateAvatarService playerUpdateAvatarService;
     private final PlayerEditService playerEditService;
+    private final PlayerGetService playerGetService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -87,5 +86,19 @@ public class PlayerController {
         playerEditService.editPlayer(playerId, request);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{playerId}")
+    @Operation(
+            description = "Get information about player",
+            summary = "Get information about player"
+    )
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<CustomResponse<PlayerResponse>> getPlayer(
+            @PathVariable(name = "playerId") UUID playerId
+    ) {
+        PlayerResponse response = playerGetService.getPlayer(playerId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }

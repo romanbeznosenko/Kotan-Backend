@@ -22,6 +22,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/team/{teamId}/player/list")
                 .excludePathPatterns("/api/news/list")
                 .excludePathPatterns("/api/news/{newsId}")
+                .excludePathPatterns("api/team/{teamId}/player/{playerId}")
                 .excludePathPatterns("/api/tag/list");
 
         //Build userDetails for SecurityContext
@@ -33,6 +34,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/news/list")
                 .excludePathPatterns("/api/news/{newsId}")
                 .excludePathPatterns("/api/tag/list")
+                .excludePathPatterns("/api/team/{teamId}/player/{playerId}")
                 .addPathPatterns("/internal/**");
     }
 }

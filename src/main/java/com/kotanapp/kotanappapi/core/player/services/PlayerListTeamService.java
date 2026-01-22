@@ -7,6 +7,7 @@ import com.kotanapp.kotanappapi.core.player.models.PlayerPageResponse;
 import com.kotanapp.kotanappapi.core.team.management.TeamManager;
 import com.kotanapp.kotanappapi.core.team.management.TeamNotFoundException;
 import com.kotanapp.kotanappapi.core.team.models.TeamDAO;
+import com.kotanapp.kotanappapi.files.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class PlayerListTeamService {
     private final PlayerManager playerManager;
     private final TeamManager teamManager;
+    private final StorageService storageService;
 
     public PlayerPageResponse listPlayersByTeam(UUID teamId){
         log.info("List players from team with id: {}", teamId);
@@ -29,7 +31,7 @@ public class PlayerListTeamService {
                 .orElseThrow(TeamNotFoundException::new);
         Page<PlayerDAO> playerDAOPage = playerManager.findByTeam(teamDAO);
         List<PlayerListResponse> playerDAOList = playerDAOPage.get()
-                .map(PlayerBuilders::buildListResponse)
+                .map(item -> PlayerBuilders.buildListResponse(item, storageService))
                 .toList();
 
         return PlayerPageResponse.builder()
