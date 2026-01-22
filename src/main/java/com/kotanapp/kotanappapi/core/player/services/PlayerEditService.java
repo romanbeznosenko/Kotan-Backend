@@ -27,11 +27,11 @@ public class PlayerEditService {
                 .orElseThrow(PlayerNotFoundException::new);
         Player player = playerMapper.mapToDomain(playerDAO, new CycleAvoidingMappingContext());
 
-        player.setFirstName(player.getFirstName());
-        player.setLastName(player.getLastName());
-        player.setPlayerPosition(player.getPlayerPosition());
-        player.setFieldNumber(player.getFieldNumber());
-        player.setBirthDate(player.getBirthDate());
+        player.setFirstName(request.firstName());
+        player.setLastName(request.lastName());
+        player.setPlayerPosition(request.playerPosition());
+        player.setFieldNumber(request.fieldNumber());
+        player.setBirthDate(request.birthDate());
 
         playerDAO = playerMapper.mapToEntity(player, new CycleAvoidingMappingContext());
         playerManager.saveToDatabase(playerDAO);

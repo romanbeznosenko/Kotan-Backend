@@ -3,10 +3,11 @@ package com.kotanapp.kotanappapi.core.player.management;
 import com.kotanapp.kotanappapi.core.player.models.Player;
 import com.kotanapp.kotanappapi.core.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.core.player.models.PlayerId;
+import com.kotanapp.kotanappapi.core.team.management.TeamMapper;
 import com.kotanapp.kotanappapi.utils.CycleAvoidingMappingContext;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
+@Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true), uses = {TeamMapper.class})
 public interface PlayerMapper {
     @Mapping(target = "id", expression = "java(toMap.getPlayerId().getId())")
     PlayerDAO mapToEntity(Player toMap,
