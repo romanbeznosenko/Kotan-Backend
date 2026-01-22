@@ -41,6 +41,9 @@ public class PlayerDAO {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "field_number")
+    private String fieldNumber;
+
     @Column(name = "avatar")
     private String avatar;
 

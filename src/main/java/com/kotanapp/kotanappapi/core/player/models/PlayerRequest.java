@@ -20,6 +20,9 @@ public record PlayerRequest(
         @NotNull
         PlayerPositionEnum playerPosition,
 
+        @Schema(description = "Player's field number", example = "1")
+        String fieldNumber,
+
         @Schema(description = "Player's birth date", example = "2010-10-10")
         @NotNull
         LocalDate birthDate

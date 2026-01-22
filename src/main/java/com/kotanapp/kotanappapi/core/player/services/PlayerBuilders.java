@@ -15,6 +15,7 @@ public class PlayerBuilders {
                 .playerPosition(playerRequest.playerPosition())
                 .team(null)
                 .birthDate(playerRequest.birthDate())
+                .fieldNumber(playerRequest.fieldNumber())
                 .build();
     }
 
@@ -24,7 +25,7 @@ public class PlayerBuilders {
                 .firstName(playerDAO.getFirstName())
                 .lastName(playerDAO.getLastName())
                 .playerPosition(playerDAO.getPlayerPosition())
-                .number(null)
+                .number(playerDAO.getFieldNumber())
                 .build();
     }
 }

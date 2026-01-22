@@ -3,6 +3,7 @@ package com.kotanapp.kotanappapi.core.player;
 import com.kotanapp.kotanappapi.core.player.models.PlayerPageResponse;
 import com.kotanapp.kotanappapi.core.player.models.PlayerRequest;
 import com.kotanapp.kotanappapi.core.player.services.PlayerCreateService;
+import com.kotanapp.kotanappapi.core.player.services.PlayerEditService;
 import com.kotanapp.kotanappapi.core.player.services.PlayerListTeamService;
 import com.kotanapp.kotanappapi.core.player.services.PlayerUpdateAvatarService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
@@ -25,6 +26,7 @@ public class PlayerController {
     private final PlayerCreateService playerCreateService;
     private final PlayerListTeamService playerListTeamService;
     private final PlayerUpdateAvatarService playerUpdateAvatarService;
+    private final PlayerEditService playerEditService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -68,6 +70,21 @@ public class PlayerController {
             @RequestPart(name = "file") MultipartFile file
             ) throws IOException {
         playerUpdateAvatarService.updatePlayerAvatar(playerId, file);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/{playerId}")
+    @Operation(
+            description = "Edit player information",
+            summary = "Edit player information"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> editPlayer(
+            @PathVariable(name = "playerId") UUID playerId,
+            @RequestBody @Valid PlayerRequest request
+    ) {
+        playerEditService.editPlayer(playerId, request);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }

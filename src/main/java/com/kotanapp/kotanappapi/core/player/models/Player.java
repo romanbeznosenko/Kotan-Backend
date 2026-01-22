@@ -22,6 +22,7 @@ public class Player {
     private Team team;
     private LocalDate birthDate;
     private String avatar;
+    private String fieldNumber;
 
     private Instant createdAt;
     private Instant updatedAt;
