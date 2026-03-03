@@ -26,6 +26,7 @@ public class TeamController {
     private final TeamUploadCoverService teamUploadCoverService;
     private final TeamPageService teamPageService;
     private final TeamGetService teamGetService;
+    private final TeamDeleteService teamDeleteService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -104,6 +105,20 @@ public class TeamController {
         TeamResponse response = teamGetService.getTeam(clubId, teamId);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{teamId}")
+    @Operation(
+            description = "Delete team",
+            summary = "Delete team"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> deleteTeam(
+            @PathVariable(name = "clubId") UUID clubId,
+            @PathVariable(name = "teamId") UUID teamId
+    ) {
+        teamDeleteService.deleteTeam(clubId, teamId);
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 
 }
