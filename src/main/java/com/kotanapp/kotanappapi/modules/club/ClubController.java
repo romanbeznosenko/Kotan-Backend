@@ -2,10 +2,8 @@ package com.kotanapp.kotanappapi.modules.club;
 
 import com.kotanapp.kotanappapi.modules.club.models.ClubPageResponse;
 import com.kotanapp.kotanappapi.modules.club.models.ClubRequest;
-import com.kotanapp.kotanappapi.modules.club.services.ClubCreateService;
-import com.kotanapp.kotanappapi.modules.club.services.ClubEditService;
-import com.kotanapp.kotanappapi.modules.club.services.ClubPageService;
-import com.kotanapp.kotanappapi.modules.club.services.ClubUploadLogoService;
+import com.kotanapp.kotanappapi.modules.club.models.ClubResponse;
+import com.kotanapp.kotanappapi.modules.club.services.*;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -27,6 +25,7 @@ public class ClubController {
     private final ClubEditService clubEditService;
     private final ClubUploadLogoService clubUploadLogoService;
     private final ClubPageService clubPageService;
+    private final ClubGetService clubGetService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -82,6 +81,20 @@ public class ClubController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<ClubPageResponse>> findAllClubs() {
         ClubPageResponse response = clubPageService.listAllClubs();
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{clubId}")
+    @Operation(
+            description = "Get club",
+            summary = "Get club"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<ClubResponse>> findClubById(
+            @PathVariable(name = "clubId") UUID clubId
+    ) {
+        ClubResponse response = clubGetService.getClub(clubId);
+
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }

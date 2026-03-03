@@ -26,4 +26,16 @@ public class ClubBuilders {
                 .logo(storageService.createPresignedGetUrl(clubDAO.getLogo()))
                 .build();
     }
+
+    public static ClubResponse buildResponse(ClubDAO clubDAO, StorageService storageService) {
+        return ClubResponse.builder()
+                .id(clubDAO.getId())
+                .name(clubDAO.getName())
+                .shortName(clubDAO.getShortName())
+                .city(clubDAO.getCity())
+                .country(clubDAO.getCountry())
+                .logo(storageService.createPresignedGetUrl(clubDAO.getLogo()))
+                .isOurClub(clubDAO.getIsOurClub())
+                .build();
+    }
 }
