@@ -1,4 +1,4 @@
-package com.kotanapp.kotanappapi.core.team.models;
+package com.kotanapp.kotanappapi.core.club.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
@@ -7,6 +7,6 @@ import java.util.UUID;
 
 @Value
 @AllArgsConstructor(staticName = "of")
-public class TeamId {
+public class ClubId {
     UUID id;
 }

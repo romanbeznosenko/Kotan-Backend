@@ -1,13 +1,11 @@
-package com.kotanapp.kotanappapi.core.news.models;
+package com.kotanapp.kotanappapi.core.club.models;
 
-import com.kotanapp.kotanappapi.core.tags.models.TagDAO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,32 +15,30 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "news")
-public class NewsDAO {
+@Table(name = "club")
+public class ClubDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "short_description")
-    private String shortDescription;
+    @Column(name = "short_name")
+    private String shortName;
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "city")
+    private String city;
 
-    @Column(name = "banner")
-    private String banner;
+    @Column(name = "country")
+    private String country;
 
-    @ManyToMany
-    @JoinTable(
-            name = "news_tags",
-            joinColumns = @JoinColumn(name = "news_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<TagDAO> tags;
+    @Column(name = "logo")
+    private String logo;
+
+    @Column(name = "is_our_club")
+    private Boolean isOurClub;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -67,7 +63,7 @@ public class NewsDAO {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        NewsDAO other = (NewsDAO) obj;
+        ClubDAO other = (ClubDAO) obj;
 
         if (id != null && other.id != null) {
             return Objects.equals(id, other.id);

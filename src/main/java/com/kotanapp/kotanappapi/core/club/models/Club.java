@@ -1,25 +1,24 @@
-package com.kotanapp.kotanappapi.core.news.models;
+package com.kotanapp.kotanappapi.core.club.models;
 
-import com.kotanapp.kotanappapi.core.tags.models.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
-    private NewsId newsId;
-    private String title;
-    private String shortDescription;
-    private String content;
-    private String banner;
-    private List<Tag> tags;
+public class Club {
+    private ClubId clubId;
+    private String name;
+    private String shortName;
+    private String city;
+    private String country;
+    private String logo;
+    private Boolean isOurClub;
 
     private Instant createdAt;
     private Instant updatedAt;
