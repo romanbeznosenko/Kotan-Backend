@@ -3,6 +3,7 @@ package com.kotanapp.kotanappapi.modules.team;
 import com.kotanapp.kotanappapi.modules.team.models.TeamRequest;
 import com.kotanapp.kotanappapi.modules.team.services.TeamCreateService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamEditService;
+import com.kotanapp.kotanappapi.modules.team.services.TeamUploadCoverService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class TeamController {
     private final TeamCreateService teamCreateService;
     private final TeamEditService teamEditService;
+    private final TeamUploadCoverService teamUploadCoverService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -57,4 +59,19 @@ public class TeamController {
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/{teamId}/cover/upload", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Upload team cover image",
+            summary = "Upload team cover image"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> uploadTeamCoverImage(
+            @PathVariable(name = "clubId") UUID clubId,
+            @PathVariable(name = "teamId") UUID teamId,
+            @RequestPart(name = "file") MultipartFile file
+    ) throws IOException {
+        teamUploadCoverService.uploadCover(clubId, teamId, file);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
 }
