@@ -1,8 +1,11 @@
 package com.kotanapp.kotanappapi.modules.team;
 
+import com.kotanapp.kotanappapi.modules.team.models.TeamListResponse;
+import com.kotanapp.kotanappapi.modules.team.models.TeamPageResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamRequest;
 import com.kotanapp.kotanappapi.modules.team.services.TeamCreateService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamEditService;
+import com.kotanapp.kotanappapi.modules.team.services.TeamPageService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamUploadCoverService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +27,7 @@ public class TeamController {
     private final TeamCreateService teamCreateService;
     private final TeamEditService teamEditService;
     private final TeamUploadCoverService teamUploadCoverService;
+    private final TeamPageService teamPageService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -73,5 +77,19 @@ public class TeamController {
         teamUploadCoverService.uploadCover(clubId, teamId, file);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/list")
+    @Operation(
+            description = "List teams from club",
+            summary = "List teams from club"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<TeamPageResponse>> listTeams(
+            @PathVariable(name = "clubId") UUID clubId
+    ) {
+        TeamPageResponse response = teamPageService.findAll(clubId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }

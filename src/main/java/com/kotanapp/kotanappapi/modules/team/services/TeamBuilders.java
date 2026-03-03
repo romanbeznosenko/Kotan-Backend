@@ -1,9 +1,7 @@
 package com.kotanapp.kotanappapi.modules.team.services;
 
 import com.kotanapp.kotanappapi.modules.club.models.Club;
-import com.kotanapp.kotanappapi.modules.team.models.Team;
-import com.kotanapp.kotanappapi.modules.team.models.TeamId;
-import com.kotanapp.kotanappapi.modules.team.models.TeamRequest;
+import com.kotanapp.kotanappapi.modules.team.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +16,15 @@ public class TeamBuilders {
                 .gender(request.gender())
                 .coachName(request.coachName())
                 .isArchived(false)
+                .build();
+    }
+
+    public static TeamListResponse buildListResponse(TeamDAO teamDAO){
+        return TeamListResponse.builder()
+                .id(teamDAO.getId())
+                .name(teamDAO.getName())
+                .ageGroup(teamDAO.getAgeGroup())
+                .gender(teamDAO.getGender())
                 .build();
     }
 }
