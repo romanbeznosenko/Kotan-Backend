@@ -2,8 +2,10 @@ package com.kotanapp.kotanappapi.modules.team;
 
 import com.kotanapp.kotanappapi.modules.team.models.TeamRequest;
 import com.kotanapp.kotanappapi.modules.team.services.TeamCreateService;
+import com.kotanapp.kotanappapi.modules.team.services.TeamEditService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TeamController {
     private final TeamCreateService teamCreateService;
+    private final TeamEditService teamEditService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -37,4 +40,21 @@ public class TeamController {
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.CREATED), HttpStatus.CREATED);
     }
+
+    @PatchMapping(value = "/{teamId}")
+    @Operation(
+            description = "Edit team information",
+            summary = "Edit team information"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> editTeam(
+            @PathVariable(name = "clubId") UUID clubId,
+            @PathVariable(name = "teamId") UUID teamId,
+            @RequestBody @Valid TeamRequest request
+    ) {
+        teamEditService.updateTeam(clubId, teamId, request);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
 }
