@@ -1,8 +1,10 @@
 package com.kotanapp.kotanappapi.modules.club;
 
+import com.kotanapp.kotanappapi.modules.club.models.ClubPageResponse;
 import com.kotanapp.kotanappapi.modules.club.models.ClubRequest;
 import com.kotanapp.kotanappapi.modules.club.services.ClubCreateService;
 import com.kotanapp.kotanappapi.modules.club.services.ClubEditService;
+import com.kotanapp.kotanappapi.modules.club.services.ClubPageService;
 import com.kotanapp.kotanappapi.modules.club.services.ClubUploadLogoService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +26,7 @@ public class ClubController {
     private final ClubCreateService clubCreateService;
     private final ClubEditService clubEditService;
     private final ClubUploadLogoService clubUploadLogoService;
+    private final ClubPageService clubPageService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -69,6 +72,17 @@ public class ClubController {
         clubUploadLogoService.uploadLogo(clubId, file);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/list")
+    @Operation(
+            description = "List all clubs",
+            summary = "List all clubs"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<ClubPageResponse>> findAllClubs() {
+        ClubPageResponse response = clubPageService.listAllClubs();
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
 

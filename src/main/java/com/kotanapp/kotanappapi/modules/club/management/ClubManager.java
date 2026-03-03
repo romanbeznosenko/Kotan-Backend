@@ -2,6 +2,8 @@ package com.kotanapp.kotanappapi.modules.club.management;
 
 import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,5 +20,9 @@ public class ClubManager {
 
     public Optional<ClubDAO> findById(UUID id) {
         return clubRepository.findById(id);
+    }
+
+    public Page<ClubDAO> findAll(Pageable pageable) {
+        return clubRepository.findAll(pageable);
     }
 }
