@@ -2,6 +2,7 @@ package com.kotanapp.kotanappapi.modules.match.models;
 
 import com.kotanapp.kotanappapi.modules.competition.models.CompetitionDAO;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
+import com.kotanapp.kotanappapi.utils.enums.MatchStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,7 +53,7 @@ public class MatchDAO {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private YamlProcessor.MatchStatus status;
+    private MatchStatusEnum status;
 
     @CreationTimestamp
     @Column(name = "created_at")

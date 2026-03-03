@@ -38,4 +38,16 @@ public class ClubBuilders {
                 .isOurClub(clubDAO.getIsOurClub())
                 .build();
     }
+
+    public static Club buildFromCSV(String[] parts){
+        return Club.builder()
+                .clubId(ClubId.of(null))
+                .name(parts[0].trim())
+                .shortName(parts[1].trim())
+                .city(parts[2].trim())
+                .country(parts[3].trim())
+                .isOurClub(parts[4].trim().equalsIgnoreCase("true"))
+                .isArchived(false)
+                .build();
+    }
 }

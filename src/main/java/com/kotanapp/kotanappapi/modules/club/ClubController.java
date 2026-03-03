@@ -27,6 +27,7 @@ public class ClubController {
     private final ClubPageService clubPageService;
     private final ClubGetService clubGetService;
     private final ClubDeleteService clubDeleteService;
+    private final ClubImportService clubImportService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -109,6 +110,20 @@ public class ClubController {
             @PathVariable(name = "clubId") UUID clubId
     ) {
         clubDeleteService.deleteClub(clubId);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/import", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Import clubs from CSV",
+            summary = "Import clubs from CSV"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> importClubs(
+           @RequestPart(name = "file") MultipartFile file
+    ) throws IOException {
+        clubImportService.importClubs(file);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
