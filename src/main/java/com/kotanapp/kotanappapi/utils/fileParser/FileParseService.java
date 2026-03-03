@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -86,9 +87,11 @@ public class FileParseService {
 
                 String[] parts = line.split(",");
 
-                if (parts.length != 5) {
+                if (parts.length < 4) {
                     continue;
                 }
+
+                log.info("team line: {}", Arrays.toString(parts));
 
                 ClubDAO clubDAO = clubManager.findByName(parts[0].trim())
                         .orElseThrow(ClubNotFoundException::new);

@@ -68,7 +68,7 @@ public class TeamBuilders {
                 .name(parts[1].trim())
                 .ageGroup(ageGroup)
                 .gender(parts[3].trim().equals("MEN") ? GenderEnum.MEN : GenderEnum.WOMEN)
-                .coachName(parts[4].trim())
+                .coachName(parts.length > 4 ? parts[4].trim() : null)
                 .isArchived(false)
                 .build();
     }
