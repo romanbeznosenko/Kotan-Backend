@@ -1,5 +1,8 @@
-package com.kotanapp.kotanappapi.core.club.models;
+package com.kotanapp.kotanappapi.modules.team.models;
 
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
+import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
+import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,30 +18,30 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "club")
-public class ClubDAO {
+@Table(name = "team")
+public class TeamDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private ClubDAO club;
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "short_name")
-    private String shortName;
+    @Column(name = "age_group")
+    @Enumerated(EnumType.STRING)
+    private AgeGroupEnum ageGroup;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
 
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "logo")
-    private String logo;
-
-    @Column(name = "is_our_club")
-    private Boolean isOurClub;
+    @Column(name = "coach_name")
+    private String coachName;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -63,7 +66,7 @@ public class ClubDAO {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        ClubDAO other = (ClubDAO) obj;
+        TeamDAO other = (TeamDAO) obj;
 
         if (id != null && other.id != null) {
             return Objects.equals(id, other.id);

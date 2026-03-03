@@ -1,4 +1,4 @@
-package com.kotanapp.kotanappapi.core.club.models;
+package com.kotanapp.kotanappapi.modules.club.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

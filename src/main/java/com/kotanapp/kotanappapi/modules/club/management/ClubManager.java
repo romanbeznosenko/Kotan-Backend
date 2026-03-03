@@ -1,6 +1,6 @@
-package com.kotanapp.kotanappapi.core.club.management;
+package com.kotanapp.kotanappapi.modules.club.management;
 
-import com.kotanapp.kotanappapi.core.club.models.ClubDAO;
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
