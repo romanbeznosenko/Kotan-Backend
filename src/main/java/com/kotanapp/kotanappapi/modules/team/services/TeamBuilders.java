@@ -1,5 +1,6 @@
 package com.kotanapp.kotanappapi.modules.team.services;
 
+import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.club.models.Club;
 import com.kotanapp.kotanappapi.modules.team.models.*;
 import lombok.AccessLevel;
@@ -25,6 +26,17 @@ public class TeamBuilders {
                 .name(teamDAO.getName())
                 .ageGroup(teamDAO.getAgeGroup())
                 .gender(teamDAO.getGender())
+                .build();
+    }
+
+    public static TeamResponse buildResponse(TeamDAO teamDAO, StorageService storageService) {
+        return TeamResponse.builder()
+                .id(teamDAO.getId())
+                .name(teamDAO.getName())
+                .ageGroup(teamDAO.getAgeGroup())
+                .gender(teamDAO.getGender())
+                .coachName(teamDAO.getCoachName())
+                .coverImage(storageService.createPresignedGetUrl(teamDAO.getCoverImage()))
                 .build();
     }
 }

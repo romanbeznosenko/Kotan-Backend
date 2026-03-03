@@ -1,12 +1,9 @@
 package com.kotanapp.kotanappapi.modules.team;
 
-import com.kotanapp.kotanappapi.modules.team.models.TeamListResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamPageResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamRequest;
-import com.kotanapp.kotanappapi.modules.team.services.TeamCreateService;
-import com.kotanapp.kotanappapi.modules.team.services.TeamEditService;
-import com.kotanapp.kotanappapi.modules.team.services.TeamPageService;
-import com.kotanapp.kotanappapi.modules.team.services.TeamUploadCoverService;
+import com.kotanapp.kotanappapi.modules.team.models.TeamResponse;
+import com.kotanapp.kotanappapi.modules.team.services.*;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -28,6 +25,7 @@ public class TeamController {
     private final TeamEditService teamEditService;
     private final TeamUploadCoverService teamUploadCoverService;
     private final TeamPageService teamPageService;
+    private final TeamGetService teamGetService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -92,4 +90,20 @@ public class TeamController {
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{teamId}")
+    @Operation(
+            description = "Get team by ID",
+            summary = "Get team by ID"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<TeamResponse>> getTeam(
+            @PathVariable(name = "clubId") UUID clubId,
+            @PathVariable(name = "teamId") UUID teamId
+    ) {
+        TeamResponse response = teamGetService.getTeam(clubId, teamId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
 }
