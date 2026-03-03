@@ -27,4 +27,10 @@ public class ClubManager {
         Specification<ClubDAO> specification = ClubSpecifications.notIsArchived();
         return clubRepository.findAll(specification, pageable);
     }
+
+    public Optional<ClubDAO> findByName(String name) {
+        Specification<ClubDAO> specification = ClubSpecifications.byName(name)
+                .and(ClubSpecifications.notIsArchived());
+        return clubRepository.findOne(specification);
+    }
 }

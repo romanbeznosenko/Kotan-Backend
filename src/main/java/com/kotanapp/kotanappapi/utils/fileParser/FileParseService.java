@@ -1,7 +1,14 @@
 package com.kotanapp.kotanappapi.utils.fileParser;
 
+import com.kotanapp.kotanappapi.modules.club.management.ClubManager;
+import com.kotanapp.kotanappapi.modules.club.management.ClubMapper;
+import com.kotanapp.kotanappapi.modules.club.management.ClubNotFoundException;
 import com.kotanapp.kotanappapi.modules.club.models.Club;
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import com.kotanapp.kotanappapi.modules.club.services.ClubBuilders;
+import com.kotanapp.kotanappapi.modules.team.models.Team;
+import com.kotanapp.kotanappapi.modules.team.services.TeamBuilders;
+import com.kotanapp.kotanappapi.utils.CycleAvoidingMappingContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +25,9 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class FileParseService {
+    private final ClubManager clubManager;
+    private final ClubMapper clubMapper;
+
     public List<Club> extractClubs(MultipartFile file) throws IOException {
         String filename = file.getOriginalFilename();
         if (filename == null || !filename.toLowerCase().endsWith(".csv")) {
@@ -51,5 +61,44 @@ public class FileParseService {
         }
 
         return clubs;
+    }
+
+    public List<Team> extractTeams(MultipartFile file) throws IOException {
+        String filename = file.getOriginalFilename();
+        if (filename == null || !filename.toLowerCase().endsWith(".csv")) {
+            throw new FileParserUnsupportedFileExtensionException();
+        }
+
+        List<Team> teams = new ArrayList<>();
+        boolean firstLine = true;
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                if (firstLine || line.toLowerCase().contains("clubname")) {
+                    firstLine = false;
+                    continue;
+                }
+                firstLine = false;
+
+                String[] parts = line.split(",");
+
+                if (parts.length != 5) {
+                    continue;
+                }
+
+                ClubDAO clubDAO = clubManager.findByName(parts[0].trim())
+                        .orElseThrow(ClubNotFoundException::new);
+                Club club = clubMapper.mapToDomain(clubDAO, new CycleAvoidingMappingContext());
+
+                Team team = TeamBuilders.buildFromCSV(parts, club);
+                teams.add(team);
+            }
+        }
+
+        return teams;
     }
 }

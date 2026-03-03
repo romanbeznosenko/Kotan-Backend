@@ -27,6 +27,7 @@ public class TeamController {
     private final TeamPageService teamPageService;
     private final TeamGetService teamGetService;
     private final TeamDeleteService teamDeleteService;
+    private final TeamImportService teamImportService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -121,4 +122,17 @@ public class TeamController {
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/import", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Import teams from CSV",
+            summary = "Import teams from CSV"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> importTeams(
+            @RequestPart(name = "file") MultipartFile file
+    ) throws IOException {
+        teamImportService.importTeams(file);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
 }
