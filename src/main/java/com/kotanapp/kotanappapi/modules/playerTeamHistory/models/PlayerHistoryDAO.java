@@ -1,8 +1,7 @@
-package com.kotanapp.kotanappapi.modules.player.models;
+package com.kotanapp.kotanappapi.modules.playerTeamHistory.models;
 
+import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
-import com.kotanapp.kotanappapi.utils.enums.PositionEnum;
-import com.kotanapp.kotanappapi.utils.enums.PreferredFootEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,48 +18,26 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "player")
-public class PlayerDAO {
+@Table(name = "player_history")
+public class PlayerHistoryDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
     @ManyToOne
+    @JoinColumn(name = "player_id")
+    private PlayerDAO player;
+
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private TeamDAO team;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "from_date")
+    private LocalDate fromDate;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
-
-    @Column(name = "nationality")
-    private String nationality;
-
-    @Column(name = "height")
-    private Long height;
-
-    @Column(name = "weight")
-    private Long weight;
-
-    @Column(name = "preferred_foot")
-    @Enumerated(EnumType.STRING)
-    private PreferredFootEnum preferredFoot;
-
-    @Column(name = "position")
-    @Enumerated(EnumType.STRING)
-    private PositionEnum position;
-
-    @Column(name = "photo")
-    private String photo;
-
-    @Column(name = "short_number")
-    private String shortNumber;
+    @Column(name = "to_date")
+    private LocalDate toDate;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -85,7 +62,7 @@ public class PlayerDAO {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        PlayerDAO other = (PlayerDAO) obj;
+        PlayerHistoryDAO other = (PlayerHistoryDAO) obj;
 
         if (id != null && other.id != null) {
             return Objects.equals(id, other.id);

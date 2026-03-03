@@ -27,6 +27,7 @@ public class Player {
     private PreferredFootEnum preferredFoot;
     private PositionEnum position;
     private String photo;
+    private String shortNumber;
 
     private Instant createdAt;
     private Instant updatedAt;
