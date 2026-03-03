@@ -26,6 +26,7 @@ public class ClubController {
     private final ClubUploadLogoService clubUploadLogoService;
     private final ClubPageService clubPageService;
     private final ClubGetService clubGetService;
+    private final ClubDeleteService clubDeleteService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -96,6 +97,20 @@ public class ClubController {
         ClubResponse response = clubGetService.getClub(clubId);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{clubId}")
+    @Operation(
+            description = "Delete club",
+            summary = "Delete club"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> deleteClub(
+            @PathVariable(name = "clubId") UUID clubId
+    ) {
+        clubDeleteService.deleteClub(clubId);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
 
