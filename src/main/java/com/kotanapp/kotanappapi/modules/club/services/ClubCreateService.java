@@ -31,11 +31,13 @@ public class ClubCreateService {
 
         Club club = ClubBuilders.buildFromRequest(request);
 
-        String storageKey = storageService.generateStorageKey(UUID.randomUUID(), file, FOLDER_NAME);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        outputStream.write(file.getBytes());
-        storageService.uploadFile(storageKey, file.getContentType(), outputStream);
-        club.setLogo(storageKey);
+        if (file != null) {
+            String storageKey = storageService.generateStorageKey(UUID.randomUUID(), file, FOLDER_NAME);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(file.getBytes());
+            storageService.uploadFile(storageKey, file.getContentType(), outputStream);
+            club.setLogo(storageKey);
+        }
 
         ClubDAO clubDAO = clubMapper.mapToEntity(club, new CycleAvoidingMappingContext());
 

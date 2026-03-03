@@ -43,6 +43,9 @@ public class TeamDAO {
     @Column(name = "coach_name")
     private String coachName;
 
+    @Column(name = "cover_image")
+    private String coverImage;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
