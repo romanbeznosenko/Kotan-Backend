@@ -3,6 +3,7 @@ package com.kotanapp.kotanappapi.modules.club;
 import com.kotanapp.kotanappapi.modules.club.models.ClubRequest;
 import com.kotanapp.kotanappapi.modules.club.services.ClubCreateService;
 import com.kotanapp.kotanappapi.modules.club.services.ClubEditService;
+import com.kotanapp.kotanappapi.modules.club.services.ClubUploadLogoService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class ClubController {
     private final ClubCreateService clubCreateService;
     private final ClubEditService clubEditService;
+    private final ClubUploadLogoService clubUploadLogoService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -53,4 +55,20 @@ public class ClubController {
         clubEditService.editClub(clubId, request);
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
+
+    @PatchMapping(value = "/{clubId}/logo", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Upload club logo",
+            summary = "Upload club logo"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> uploadClubLogo(
+            @PathVariable(name = "clubId") UUID clubId,
+            @RequestPart(name = "file") MultipartFile file
+    ) throws IOException {
+        clubUploadLogoService.uploadLogo(clubId, file);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
 }
+
