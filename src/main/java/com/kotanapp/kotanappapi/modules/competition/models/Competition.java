@@ -1,6 +1,6 @@
 package com.kotanapp.kotanappapi.modules.competition.models;
 
-import com.kotanapp.kotanappapi.utils.enums.CompetitionType;
+import com.kotanapp.kotanappapi.utils.enums.CompetitionTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,7 @@ public class Competition {
     private CompetitionId competitionId;
     private String name;
     private String season;
-    private CompetitionType type;
+    private CompetitionTypeEnum type;
 
     private Instant createdAt;
     private Instant updatedAt;

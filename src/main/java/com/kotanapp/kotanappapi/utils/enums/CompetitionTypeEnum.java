@@ -1,6 +1,6 @@
 package com.kotanapp.kotanappapi.utils.enums;
 
-public enum CompetitionType {
+public enum CompetitionTypeEnum {
     LEAGUE,
     CUP,
     FRIENDLY

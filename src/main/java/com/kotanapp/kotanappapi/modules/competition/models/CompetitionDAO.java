@@ -1,6 +1,6 @@
 package com.kotanapp.kotanappapi.modules.competition.models;
 
-import com.kotanapp.kotanappapi.utils.enums.CompetitionType;
+import com.kotanapp.kotanappapi.utils.enums.CompetitionTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +31,7 @@ public class CompetitionDAO {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private CompetitionType type;
+    private CompetitionTypeEnum type;
 
     @CreationTimestamp
     @Column(name = "created_at")
