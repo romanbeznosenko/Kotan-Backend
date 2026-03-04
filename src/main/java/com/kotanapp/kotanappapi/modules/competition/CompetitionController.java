@@ -2,12 +2,12 @@ package com.kotanapp.kotanappapi.modules.competition;
 
 import com.kotanapp.kotanappapi.modules.competition.models.CompetitionRequest;
 import com.kotanapp.kotanappapi.modules.competition.services.CompetitionCreateService;
+import com.kotanapp.kotanappapi.modules.competition.services.CompetitionDeleteService;
 import com.kotanapp.kotanappapi.modules.competition.services.CompetitionEditService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +21,7 @@ import java.util.UUID;
 public class CompetitionController {
     private final CompetitionCreateService competitionCreateService;
     private final CompetitionEditService competitionEditService;
+    private final CompetitionDeleteService competitionDeleteService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -49,6 +50,20 @@ public class CompetitionController {
             @RequestBody @Valid CompetitionRequest request
     ) {
         competitionEditService.editCompetition(competitionId, request);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{competitionId}")
+    @Operation(
+            description = "Delete competition by Id",
+            summary = "Delete competition by Id"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> delete(
+            @PathVariable(name = "competitionId") UUID competitionId
+    ) {
+        competitionDeleteService.deleteCompetition(competitionId);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }

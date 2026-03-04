@@ -17,6 +17,6 @@ public class CompetitionManager {
     }
 
     public Optional<CompetitionDAO> findById(UUID id) {
-        return competitionRepository.findById(id);
+        return competitionRepository.findByIdAndIsArchivedFalse(id);
     }
 }
