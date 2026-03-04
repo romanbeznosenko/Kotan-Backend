@@ -1,8 +1,6 @@
 package com.kotanapp.kotanappapi.modules.competition.services;
 
-import com.kotanapp.kotanappapi.modules.competition.models.Competition;
-import com.kotanapp.kotanappapi.modules.competition.models.CompetitionId;
-import com.kotanapp.kotanappapi.modules.competition.models.CompetitionRequest;
+import com.kotanapp.kotanappapi.modules.competition.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +13,15 @@ public class CompetitionBuilders {
                 .season(request.season())
                 .type(request.competitionType())
                 .isArchived(false)
+                .build();
+    }
+
+    public static CompetitionResponse buildResponse(CompetitionDAO competitionDAO) {
+        return CompetitionResponse.builder()
+                .id(competitionDAO.getId())
+                .name(competitionDAO.getName())
+                .season(competitionDAO.getSeason())
+                .type(competitionDAO.getType())
                 .build();
     }
 }

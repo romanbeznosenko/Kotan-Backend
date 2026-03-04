@@ -1,9 +1,11 @@
 package com.kotanapp.kotanappapi.modules.competition;
 
+import com.kotanapp.kotanappapi.modules.competition.models.CompetitionPageResponse;
 import com.kotanapp.kotanappapi.modules.competition.models.CompetitionRequest;
 import com.kotanapp.kotanappapi.modules.competition.services.CompetitionCreateService;
 import com.kotanapp.kotanappapi.modules.competition.services.CompetitionDeleteService;
 import com.kotanapp.kotanappapi.modules.competition.services.CompetitionEditService;
+import com.kotanapp.kotanappapi.modules.competition.services.CompetitionPageService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -22,6 +24,7 @@ public class CompetitionController {
     private final CompetitionCreateService competitionCreateService;
     private final CompetitionEditService competitionEditService;
     private final CompetitionDeleteService competitionDeleteService;
+    private final CompetitionPageService competitionPageService;
 
     private final static String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -66,5 +69,16 @@ public class CompetitionController {
         competitionDeleteService.deleteCompetition(competitionId);
 
         return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/list")
+    @Operation(
+            description = "List competitions",
+            summary = "List competitions"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<CompetitionPageResponse>> list(){
+        CompetitionPageResponse response = competitionPageService.pageCompetitions();
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
