@@ -46,4 +46,8 @@ public class ClubManager {
                 .and(ClubSpecifications.notIsArchived());
         return clubRepository.findOne(specification);
     }
+
+    public Optional<ClubDAO> findOne(Specification<ClubDAO> specification) {
+        return clubRepository.findOne(specification);
+    }
 }
