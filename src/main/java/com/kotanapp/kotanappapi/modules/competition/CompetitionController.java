@@ -76,8 +76,11 @@ public class CompetitionController {
             summary = "List competitions"
     )
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<CustomResponse<CompetitionPageResponse>> list(){
-        CompetitionPageResponse response = competitionPageService.pageCompetitions();
+    public ResponseEntity<CustomResponse<CompetitionPageResponse>> list(
+            @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(name = "page", required = false, defaultValue = "1") int page
+    ){
+        CompetitionPageResponse response = competitionPageService.pageCompetitions(page, limit);
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 

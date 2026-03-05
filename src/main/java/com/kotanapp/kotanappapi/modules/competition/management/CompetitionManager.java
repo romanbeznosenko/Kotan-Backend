@@ -23,6 +23,6 @@ public class CompetitionManager {
     }
 
     public Page<CompetitionDAO> findAll(Pageable pageable) {
-        return competitionRepository.findAll(pageable);
+        return competitionRepository.findAllByIsArchivedFalse(pageable);
     }
 }

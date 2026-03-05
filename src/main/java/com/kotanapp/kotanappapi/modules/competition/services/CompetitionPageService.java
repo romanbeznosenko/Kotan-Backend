@@ -19,10 +19,10 @@ import java.util.List;
 public class CompetitionPageService {
     private final CompetitionManager competitionManager;
 
-    public CompetitionPageResponse pageCompetitions(){
+    public CompetitionPageResponse pageCompetitions(int page, int limit){
         log.info("Paging competitions");
 
-        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE);
+        Pageable pageable = PageRequest.of(page - 1, limit);
         Page<CompetitionDAO> competitionDAOPage = competitionManager.findAll(pageable);
         List<CompetitionResponse> competitionResponseList = competitionDAOPage.get()
                 .map(CompetitionBuilders::buildResponse)
