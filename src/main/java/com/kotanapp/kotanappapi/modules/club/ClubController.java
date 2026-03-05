@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/club")
+@RequestMapping("/api/admin/club")
 @RequiredArgsConstructor
 public class ClubController {
     private final ClubCreateService clubCreateService;
