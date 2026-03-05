@@ -85,8 +85,10 @@ public class StorageService {
     }
 
     public void deleteFile(String key) {
-        s3Client.deleteObject(b -> b.bucket(BUCKET_NAME)
-                                    .key(key));
+        if (key != null) {
+            s3Client.deleteObject(b -> b.bucket(BUCKET_NAME)
+                    .key(key));
+        }
     }
 
     public String createPresignedGetUrl(String keyName) {
