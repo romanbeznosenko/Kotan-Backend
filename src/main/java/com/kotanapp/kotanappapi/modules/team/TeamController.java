@@ -40,7 +40,7 @@ public class TeamController {
     public ResponseEntity<CustomResponse<Void>> createTeam(
             @PathVariable(name = "clubId") UUID clubId,
             @RequestPart(name = "request") TeamRequest request,
-            @RequestPart(name = "file") MultipartFile file
+            @RequestPart(name = "file", required = false) MultipartFile file
     ) throws IOException {
         teamCreateService.createTeam(clubId, request, file);
 
