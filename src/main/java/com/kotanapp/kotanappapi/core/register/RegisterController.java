@@ -22,7 +22,7 @@ public class RegisterController {
     @PostMapping(value = "/auth/register")
     @PreAuthorize("permitAll()")
     @Operation(
-            summary = "Register user",
+            summary = "Fuck you ",
             description = "Register user with provided username and password")
     public ResponseEntity<CustomResponse<String>> registerUser(
             @Valid
