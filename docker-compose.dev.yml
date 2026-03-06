@@ -15,7 +15,6 @@ services:
       - "9000"
     networks:
       - inside
-      - kotan-files
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 10s
@@ -97,5 +96,3 @@ networks:
   inside:
     name: kotan-backend_inside
     driver: bridge
-  kotan-files:
-    external: true
