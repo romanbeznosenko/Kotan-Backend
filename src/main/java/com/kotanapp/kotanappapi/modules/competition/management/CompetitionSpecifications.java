@@ -1,6 +1,5 @@
 package com.kotanapp.kotanappapi.modules.competition.management;
 
-import com.kotanapp.kotanappapi.modules.competition.models.Competition;
 import com.kotanapp.kotanappapi.modules.competition.models.CompetitionDAO;
 import com.kotanapp.kotanappapi.utils.enums.CompetitionTypeEnum;
 import org.springframework.data.jpa.domain.Specification;
@@ -35,6 +34,12 @@ public class CompetitionSpecifications {
             }
 
             return root.get("type").in(competitionTypes);
+        });
+    }
+
+    public static Specification<CompetitionDAO> notIsArchived(){
+        return ((root, query, criteriaBuilder) -> {
+            return criteriaBuilder.equal(root.get("isArchived"), false);
         });
     }
 }

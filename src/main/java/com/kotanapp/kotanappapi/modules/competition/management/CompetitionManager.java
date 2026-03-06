@@ -4,6 +4,7 @@ import com.kotanapp.kotanappapi.modules.competition.models.CompetitionDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,5 +25,9 @@ public class CompetitionManager {
 
     public Page<CompetitionDAO> findAll(Pageable pageable) {
         return competitionRepository.findAllByIsArchivedFalse(pageable);
+    }
+
+    public Page<CompetitionDAO> findAll(Specification<CompetitionDAO> spec, Pageable pageable) {
+        return competitionRepository.findAll(spec, pageable);
     }
 }

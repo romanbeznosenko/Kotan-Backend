@@ -5,6 +5,7 @@ import com.kotanapp.kotanappapi.modules.competition.models.CompetitionRequest;
 import com.kotanapp.kotanappapi.modules.competition.models.CompetitionResponse;
 import com.kotanapp.kotanappapi.modules.competition.services.*;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
+import com.kotanapp.kotanappapi.utils.enums.CompetitionTypeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -78,9 +80,12 @@ public class CompetitionController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CustomResponse<CompetitionPageResponse>> list(
             @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
-            @RequestParam(name = "page", required = false, defaultValue = "1") int page
+            @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "season", required = false) String season,
+            @RequestParam(name = "type", required = false) List<CompetitionTypeEnum> typeList
     ){
-        CompetitionPageResponse response = competitionPageService.pageCompetitions(page, limit);
+        CompetitionPageResponse response = competitionPageService.pageCompetitions(page, limit, name, season, typeList);
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 
