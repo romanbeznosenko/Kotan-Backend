@@ -25,9 +25,7 @@ public class ClubManager {
         return clubRepository.findByIdAndIsArchivedFalse(id);
     }
 
-    public Page<ClubDAO> findAll(Pageable pageable) {
-        Specification<ClubDAO> specification = ClubSpecifications.notIsArchived();
-
+    public Page<ClubDAO> findAll(Specification<ClubDAO> spec, Pageable pageable) {
         Sort sortByName = pageable.getSort().isSorted()
                 ? pageable.getSort()
                 : Sort.by(Sort.Direction.ASC, "name");
@@ -38,7 +36,7 @@ public class ClubManager {
                 sortByName
         );
 
-        return clubRepository.findAll(specification, pageableWithSort);
+        return clubRepository.findAll(spec, pageableWithSort);
     }
 
     public Optional<ClubDAO> findByName(String name) {
