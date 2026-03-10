@@ -81,8 +81,11 @@ public class ClubController {
             summary = "List all clubs"
     )
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<CustomResponse<ClubPageResponse>> findAllClubs() {
-        ClubPageResponse response = clubPageService.listAllClubs();
+    public ResponseEntity<CustomResponse<ClubPageResponse>> findAllClubs(
+            @RequestParam(name = "isOurClub", required = false) Boolean isOurClub,
+            @RequestParam(name = "name", required = false) String name
+    ) {
+        ClubPageResponse response = clubPageService.listAllClubs(isOurClub, name);
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 

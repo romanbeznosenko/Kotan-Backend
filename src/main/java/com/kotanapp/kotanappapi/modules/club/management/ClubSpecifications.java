@@ -10,8 +10,16 @@ public class ClubSpecifications {
         return ((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isArchived"), false));
     }
 
-    public static Specification<ClubDAO> byName(String name){
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name);
+    public static Specification<ClubDAO> byName(String name) {
+        return (root, query, criteriaBuilder) -> {
+            if (name == null || name.isEmpty()) {
+                return criteriaBuilder.conjunction();
+            }
+
+            return criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get("name")),
+                    "%" + name.trim().toLowerCase() + "%"
+            );        };
     }
 
     public static Specification<ClubDAO> byGender(GenderEnum gender){
@@ -20,5 +28,15 @@ public class ClubSpecifications {
 
     public static Specification<ClubDAO> byAgeGroup(AgeGroupEnum ageGroup){
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("ageGroup"), ageGroup);
+    }
+
+    public static Specification<ClubDAO> isOurClub(Boolean isOurClub){
+        return ((root, query, criteriaBuilder) -> {
+            if (isOurClub == null){
+                return criteriaBuilder.conjunction();
+            }
+
+            return criteriaBuilder.equal(root.get("isOurClub"), isOurClub);
+        });
     }
 }
