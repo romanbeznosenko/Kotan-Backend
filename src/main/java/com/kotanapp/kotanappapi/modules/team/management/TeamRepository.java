@@ -10,4 +10,6 @@ import java.util.UUID;
 
 public interface TeamRepository extends JpaRepository<TeamDAO, UUID>, JpaSpecificationExecutor<TeamDAO> {
     Optional<TeamDAO> findByIdAndClubAndIsArchivedFalse(UUID id, ClubDAO club);
+
+    Optional<TeamDAO> findByIdAndIsArchivedFalse(UUID id);
 }
