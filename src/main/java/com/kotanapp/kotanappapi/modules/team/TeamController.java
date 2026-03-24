@@ -1,9 +1,11 @@
 package com.kotanapp.kotanappapi.modules.team;
 
+import com.kotanapp.kotanappapi.modules.player.models.PlayerSquadResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamListResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamResponse;
 import com.kotanapp.kotanappapi.modules.team.services.TeamGetService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamListService;
+import com.kotanapp.kotanappapi.modules.team.services.TeamListSquadService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
@@ -23,6 +25,7 @@ import java.util.UUID;
 public class TeamController {
     private final TeamListService teamListService;
     private final TeamGetService teamGetService;
+    private final TeamListSquadService teamListSquadService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -51,5 +54,18 @@ public class TeamController {
         TeamResponse teamResponse = teamGetService.getTeamById(teamId);
 
         return new ResponseEntity<>(new CustomResponse<>(teamResponse, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{teamId}/squad")
+    @Operation(
+            description = "List team's squad",
+            summary = "List team's squad"
+    )
+    public ResponseEntity<CustomResponse<List<PlayerSquadResponse>>> listTeamSquad(
+            @PathVariable(name = "teamId") UUID teamId
+    ) {
+        List<PlayerSquadResponse> response = teamListSquadService.listSquadPlayers(teamId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
