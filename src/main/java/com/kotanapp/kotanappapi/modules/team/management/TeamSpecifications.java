@@ -27,4 +27,8 @@ public class TeamSpecifications {
             return root.get("gender").in(genderEnumList);
         });
     }
+
+    public static Specification<TeamDAO> isNotArchived(){
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.isFalse(root.get("isArchived")));
+    }
 }
