@@ -22,6 +22,8 @@ public class Team {
     private GenderEnum gender;
     private String coachName;
     private String coverImage;
+    private String description;
+    private String leagueName;
 
     private Instant createdAt;
     private Instant updatedAt;
