@@ -2,6 +2,8 @@ package com.kotanapp.kotanappapi.modules.team.management;
 
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,9 @@ public class TeamManager {
 
     public Optional<TeamDAO> findById(UUID id) {
         return teamRepository.findById(id);
+    }
+
+    public Page<TeamDAO> findAll(Specification<TeamDAO> specification, Pageable pageable) {
+        return teamRepository.findAll(specification, pageable);
     }
 }
