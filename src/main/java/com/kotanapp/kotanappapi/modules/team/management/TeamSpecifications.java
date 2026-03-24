@@ -1,5 +1,6 @@
 package com.kotanapp.kotanappapi.modules.team.management;
 
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
@@ -30,5 +31,15 @@ public class TeamSpecifications {
 
     public static Specification<TeamDAO> isNotArchived(){
         return ((root, query, criteriaBuilder) -> criteriaBuilder.isFalse(root.get("isArchived")));
+    }
+
+    public static Specification<TeamDAO> byClub(ClubDAO clubDAO){
+        return ((root, query, criteriaBuilder) -> {
+            if (clubDAO == null){
+                return criteriaBuilder.conjunction();
+            }
+
+            return criteriaBuilder.equal(root.get("club"), clubDAO);
+        });
     }
 }

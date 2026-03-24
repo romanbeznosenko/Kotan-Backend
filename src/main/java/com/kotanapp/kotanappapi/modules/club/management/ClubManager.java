@@ -7,6 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ClubManager {
@@ -18,5 +21,9 @@ public class ClubManager {
 
     public Page<ClubDAO> findAll(Specification<ClubDAO> specification, Pageable pageable) {
         return clubRepository.findAll(specification, pageable);
+    }
+
+    public Optional<ClubDAO> findById(UUID id) {
+        return clubRepository.findById(id);
     }
 }
