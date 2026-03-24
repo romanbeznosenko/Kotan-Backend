@@ -6,6 +6,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,5 +20,9 @@ public class TeamManager {
 
     public List<TeamDAO> findAll(Specification<TeamDAO> specification) {
         return teamRepository.findAll(specification);
+    }
+
+    public Optional<TeamDAO> findById(UUID id) {
+        return teamRepository.findById(id);
     }
 }
