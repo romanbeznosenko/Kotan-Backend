@@ -3,9 +3,11 @@ package com.kotanapp.kotanappapi.modules.team;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerSquadResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamListResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamResponse;
+import com.kotanapp.kotanappapi.modules.team.models.TeamSimpleListResponse;
 import com.kotanapp.kotanappapi.modules.team.services.TeamGetService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamListService;
 import com.kotanapp.kotanappapi.modules.team.services.TeamListSquadService;
+import com.kotanapp.kotanappapi.modules.team.services.TeamSimpleListService;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
@@ -20,51 +22,22 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/public/team")
+@RequestMapping("/api/public/club/{clubId}/team")
 @RequiredArgsConstructor
 public class TeamController {
-    private final TeamListService teamListService;
-    private final TeamGetService teamGetService;
-    private final TeamListSquadService teamListSquadService;
+    private final TeamSimpleListService teamSimpleListService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/simple")
     @Operation(
-            description = "List teams",
-            summary = "List teams"
+            description = "Simple list of all teams from the club",
+            summary = "Simple list of all teams from the club"
     )
-    public ResponseEntity<CustomResponse<List<TeamListResponse>>> listTeams(
-            @RequestParam(name = "gender", required = false) List<GenderEnum> genderEnumList,
-            @RequestParam(name = "age", required = false) List<AgeGroupEnum> ageGroupEnumList
+    public ResponseEntity<CustomResponse<List<TeamSimpleListResponse>>> simpleListTeam(
+            @PathVariable(name = "clubId") UUID clubId
     ) {
-        List<TeamListResponse> response = teamListService.getTeamList(genderEnumList, ageGroupEnumList);
-
-        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/{teamId}")
-    @Operation(
-            description = "Get team by ID",
-            summary = "Get team by ID"
-    )
-    public ResponseEntity<CustomResponse<TeamResponse>> getTeamById(
-            @PathVariable(name = "teamId") UUID teamId
-    ) {
-        TeamResponse teamResponse = teamGetService.getTeamById(teamId);
-
-        return new ResponseEntity<>(new CustomResponse<>(teamResponse, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/{teamId}/squad")
-    @Operation(
-            description = "List team's squad",
-            summary = "List team's squad"
-    )
-    public ResponseEntity<CustomResponse<List<PlayerSquadResponse>>> listTeamSquad(
-            @PathVariable(name = "teamId") UUID teamId
-    ) {
-        List<PlayerSquadResponse> response = teamListSquadService.listSquadPlayers(teamId);
+        List<TeamSimpleListResponse> response = teamSimpleListService.simpleListTeams(clubId);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }

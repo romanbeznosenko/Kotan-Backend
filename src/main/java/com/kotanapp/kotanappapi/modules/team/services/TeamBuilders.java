@@ -4,6 +4,7 @@ import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.modules.team.models.TeamListResponse;
 import com.kotanapp.kotanappapi.modules.team.models.TeamResponse;
+import com.kotanapp.kotanappapi.modules.team.models.TeamSimpleListResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,13 @@ public class TeamBuilders {
                 .coverImage(storageService.createPresignedGetUrl(teamDAO.getCoverImage()))
                 .leagueName(teamDAO.getLeagueName())
                 .description(teamDAO.getDescription())
+                .build();
+    }
+
+    public static TeamSimpleListResponse buildSimpleListResponse(TeamDAO teamDAO) {
+        return TeamSimpleListResponse.builder()
+                .id(teamDAO.getId())
+                .name(teamDAO.getName())
                 .build();
     }
 }
