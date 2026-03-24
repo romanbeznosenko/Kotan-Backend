@@ -1,7 +1,10 @@
 package com.kotanapp.kotanappapi.modules.admin.club.services;
 
+import com.kotanapp.kotanappapi.files.services.StorageService;
+import com.kotanapp.kotanappapi.modules.admin.club.models.ClubAdminListResponse;
 import com.kotanapp.kotanappapi.modules.admin.club.models.ClubAdminRequest;
 import com.kotanapp.kotanappapi.modules.club.models.Club;
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import com.kotanapp.kotanappapi.modules.club.models.ClubId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,6 +20,16 @@ public class ClubAdminBuilders {
                 .country(request.country())
                 .isOurClub(request.isOurClub())
                 .isArchived(false)
+                .build();
+    }
+
+    public static ClubAdminListResponse buildListResponse(ClubDAO clubDAO, StorageService storageService){
+        return ClubAdminListResponse.builder()
+                .id(clubDAO.getId())
+                .name(clubDAO.getName())
+                .shortName(clubDAO.getShortName())
+                .logo(storageService.createPresignedGetUrl(clubDAO.getLogo()))
+                .city(clubDAO.getCity())
                 .build();
     }
 }
