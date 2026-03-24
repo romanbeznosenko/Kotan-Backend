@@ -34,13 +34,6 @@ public class WebSecurityConfig {
             "/error/**",
             "/ws/**",
             "/internal/**",
-            "/api/team/list",
-            "api/match/list",
-            "api/team/{teamId}/player/list",
-            "api/team/{teamId}/player/{playerId}",
-            "api/news/list",
-            "api/news/{newsId}",
-            "/api/tag/list",
             "/api/public/**"
     };
 
