@@ -3,9 +3,11 @@ package com.kotanapp.kotanappapi.modules.team.models;
 import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 
 import java.util.UUID;
 
+@Builder
 public record TeamListResponse(
         @Schema(description = "Assigned id", example = "1")
         UUID id,
