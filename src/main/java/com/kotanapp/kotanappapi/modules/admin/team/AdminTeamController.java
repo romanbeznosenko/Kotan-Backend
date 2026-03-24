@@ -22,7 +22,7 @@ public class AdminTeamController {
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/list")
     @Operation(
             description = "Get all teams from club by admin",
             summary = "Get all teams from club by admin"

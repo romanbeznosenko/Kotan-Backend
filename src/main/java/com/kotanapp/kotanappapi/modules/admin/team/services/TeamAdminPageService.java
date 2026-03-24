@@ -41,8 +41,8 @@ public class TeamAdminPageService {
                 .orElseThrow(ClubNotFoundException::new);
 
         Specification<TeamDAO> spec = TeamSpecifications.isNotArchived()
-                .and(TeamSpecifications.byAgeGroup(List.of(ageGroup)))
-                .and(TeamSpecifications.byGender(List.of(gender)))
+                .and(TeamSpecifications.byAgeGroup(ageGroup != null ? List.of(ageGroup) : null))
+                .and(TeamSpecifications.byGender(gender != null ? List.of(gender) : null))
                 .and(TeamSpecifications.byClub(clubDAO));
 
         Page<TeamDAO> teamDAOPage = teamManager.findAll(spec, PageRequest.of(page - 1, limit));
