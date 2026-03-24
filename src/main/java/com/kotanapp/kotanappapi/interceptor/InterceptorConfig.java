@@ -17,24 +17,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         //Load UserDAO
         registry.addInterceptor(userInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/team/list")
-                .excludePathPatterns("/api/match/list")
-                .excludePathPatterns("/api/team/{teamId}/player/list")
-                .excludePathPatterns("/api/news/list")
-                .excludePathPatterns("/api/news/{newsId}")
-                .excludePathPatterns("api/team/{teamId}/player/{playerId}")
-                .excludePathPatterns("/api/tag/list");
+                .excludePathPatterns("/api/public/**");
 
         //Build userDetails for SecurityContext
         registry.addInterceptor(userDetailsInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/team/list")
-                .excludePathPatterns("/api/match/list")
-                .excludePathPatterns("/api/team/{teamId}/player/list")
-                .excludePathPatterns("/api/news/list")
-                .excludePathPatterns("/api/news/{newsId}")
-                .excludePathPatterns("/api/tag/list")
-                .excludePathPatterns("/api/team/{teamId}/player/{playerId}")
-                .addPathPatterns("/internal/**");
+                .excludePathPatterns("/api/public/**");
     }
 }
