@@ -13,11 +13,12 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Club {
     private ClubId clubId;
-    private String name;
     private String shortName;
+    private String name;
     private String city;
     private String country;
     private String logo;
+    private Boolean isOnline;
     private Boolean isOurClub;
 
     private Instant createdAt;
