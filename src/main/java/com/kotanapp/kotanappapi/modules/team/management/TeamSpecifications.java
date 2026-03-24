@@ -1,0 +1,30 @@
+package com.kotanapp.kotanappapi.modules.team.management;
+
+import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
+import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
+import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
+import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
+
+public class TeamSpecifications {
+    public static Specification<TeamDAO> byAgeGroup(List<AgeGroupEnum> ageGroupEnumList) {
+        return (root, query, criteriaBuilder) -> {
+            if (ageGroupEnumList == null || ageGroupEnumList.isEmpty()) {
+                return criteriaBuilder.conjunction();
+            }
+
+            return root.get("ageGroup").in(ageGroupEnumList);
+        };
+    }
+
+    public static Specification<TeamDAO> byGender(List<GenderEnum> genderEnumList) {
+        return ((root, query, criteriaBuilder) -> {
+            if (genderEnumList == null || genderEnumList.isEmpty()) {
+                return criteriaBuilder.conjunction();
+            }
+
+            return root.get("gender").in(genderEnumList);
+        });
+    }
+}
