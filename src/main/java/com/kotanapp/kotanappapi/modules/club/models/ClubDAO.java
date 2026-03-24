@@ -22,11 +22,11 @@ public class ClubDAO {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "short_name")
     private String shortName;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "city")
     private String city;
@@ -36,6 +36,9 @@ public class ClubDAO {
 
     @Column(name = "logo")
     private String logo;
+
+    @Column(name = "is_online")
+    private Boolean isOnline;
 
     @Column(name = "is_our_club")
     private Boolean isOurClub;
