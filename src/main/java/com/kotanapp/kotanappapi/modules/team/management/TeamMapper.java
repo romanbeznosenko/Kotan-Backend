@@ -12,7 +12,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true), uses = {ClubMapper.class})
 public interface TeamMapper {
     @Mapping(target = "id", expression = "java(toMap.getTeamId().getId())")
-    @Mapping(target = "club", expression = "java(toMap.getClub() != null ? com.kotanapp.kotanappapi.modules.club.models.ClubDAO.class.cast(toMap.getClub()) : null)")
+    @Mapping(target = "club", source = "toMap.club", qualifiedByName = "clubIdToClubDao")
     TeamDAO mapToEntity(Team toMap,
                         @Context CycleAvoidingMappingContext cycleAvoidingMappingContext);
 
@@ -30,5 +30,11 @@ public interface TeamMapper {
     default ClubId clubDaoToClubId(ClubDAO clubDAO) {
         if (clubDAO == null) return null;
         return ClubId.of(clubDAO.getId());
+    }
+
+    @Named("clubIdToClubDao")
+    default ClubDAO clubIdToClubDao(ClubId clubId) {
+        if (clubId == null) return null;
+        return ClubDAO.builder().id(clubId.getId()).build();
     }
 }
