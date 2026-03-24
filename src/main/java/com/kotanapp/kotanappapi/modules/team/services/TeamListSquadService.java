@@ -1,10 +1,11 @@
-package com.kotanapp.kotanappapi.modules.player.services;
+package com.kotanapp.kotanappapi.modules.team.services;
 
 import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.player.management.PlayerManager;
 import com.kotanapp.kotanappapi.modules.player.management.PlayerSpecifications;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerSquadResponse;
+import com.kotanapp.kotanappapi.modules.player.services.PlayerBuilders;
 import com.kotanapp.kotanappapi.modules.team.management.TeamManager;
 import com.kotanapp.kotanappapi.modules.team.management.TeamNotFoundException;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PlayerListSquadService {
+public class TeamListSquadService {
     private final TeamManager teamManager;
     private final PlayerManager playerManager;
     private final StorageService storageService;
