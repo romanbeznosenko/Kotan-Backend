@@ -1,6 +1,7 @@
 package com.kotanapp.kotanappapi.modules.player.models;
 
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
+import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
 import com.kotanapp.kotanappapi.utils.enums.PositionEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,6 +39,10 @@ public class PlayerDAO {
     @Column(name = "position")
     @Enumerated(EnumType.STRING)
     private PositionEnum position;
+
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
 
     @Column(name = "jersey_number")
     private String jerseyNumber;

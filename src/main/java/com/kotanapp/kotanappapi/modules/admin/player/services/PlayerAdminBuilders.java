@@ -2,7 +2,11 @@ package com.kotanapp.kotanappapi.modules.admin.player.services;
 
 import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.admin.player.models.PlayerAdminListResponse;
+import com.kotanapp.kotanappapi.modules.admin.player.models.PlayerAdminRequest;
+import com.kotanapp.kotanappapi.modules.player.models.Player;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
+import com.kotanapp.kotanappapi.modules.player.models.PlayerId;
+import com.kotanapp.kotanappapi.modules.team.models.Team;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +21,18 @@ public class PlayerAdminBuilders {
                 .position(playerDAO.getPosition())
                 .photo(storageService.createPresignedGetUrl(playerDAO.getPhoto()))
                 .build();
+    }
 
+    public static Player buildFromRequest(PlayerAdminRequest request, Team team) {
+        return Player.builder()
+                .playerId(PlayerId.of(null))
+                .team(team)
+                .firstName(request.firstName())
+                .lastName(request.lastName())
+                .jerseyNumber(request.jerseyNumber())
+                .position(request.position())
+                .gender(request.gender())
+                .dateOfBirth(request.birthDate())
+                .build();
     }
 }
