@@ -6,7 +6,6 @@ import com.kotanapp.kotanappapi.modules.player.management.PlayerManager;
 import com.kotanapp.kotanappapi.modules.player.management.PlayerSpecifications;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.modules.team.management.TeamManager;
-import com.kotanapp.kotanappapi.modules.team.management.TeamNotFoundException;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
@@ -38,7 +37,7 @@ public class PlayerAdminListService {
         log.info("Fetching all players...");
 
         TeamDAO teamDAO = teamManager.findById(teamId)
-                .orElseThrow(TeamNotFoundException::new);
+                .orElse(null);
 
         Specification<PlayerDAO> spec = PlayerSpecifications.byTeam(teamDAO)
                 .and(PlayerSpecifications.byGender(gender))
