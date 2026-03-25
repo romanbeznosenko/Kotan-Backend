@@ -1,6 +1,7 @@
 package com.kotanapp.kotanappapi.modules.player.models;
 
 import com.kotanapp.kotanappapi.modules.team.models.Team;
+import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
 import com.kotanapp.kotanappapi.utils.enums.PositionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class Player {
     private String firstName;
     private String lastName;
     private PositionEnum position;
+    private GenderEnum gender;
     private String jerseyNumber;
     private LocalDate dateOfBirth;
     private String photo;
