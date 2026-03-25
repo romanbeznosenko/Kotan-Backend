@@ -25,7 +25,7 @@ public class TeamManager {
     }
 
     public Optional<TeamDAO> findById(UUID id) {
-        return teamRepository.findById(id);
+        return teamRepository.findByIdAndIsArchivedFalse(id);
     }
 
     public Page<TeamDAO> findAll(Specification<TeamDAO> specification, Pageable pageable) {
