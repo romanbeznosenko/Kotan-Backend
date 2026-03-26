@@ -2,6 +2,10 @@ package com.kotanapp.kotanappapi.modules.admin.player.services;
 
 import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.admin.player.models.PlayerAdminListResponse;
+import com.kotanapp.kotanappapi.modules.club.management.ClubManager;
+import com.kotanapp.kotanappapi.modules.club.management.ClubNotFoundException;
+import com.kotanapp.kotanappapi.modules.club.management.ClubSpecifications;
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import com.kotanapp.kotanappapi.modules.player.management.PlayerManager;
 import com.kotanapp.kotanappapi.modules.player.management.PlayerSpecifications;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
@@ -27,6 +31,7 @@ public class PlayerAdminListService {
     private final TeamManager teamManager;
     private final PlayerManager playerManager;
     private final StorageService storageService;
+    private final ClubManager clubManager;
 
     public CustomPaginationResponse<PlayerAdminListResponse> listAllPlayers(
             int page, int limit,
@@ -39,10 +44,14 @@ public class PlayerAdminListService {
         TeamDAO teamDAO = teamManager.findById(teamId)
                 .orElse(null);
 
+        ClubDAO clubDAO = clubManager.findOne(ClubSpecifications.isOurClub(true))
+                .orElse(null);
+
         Specification<PlayerDAO> spec = PlayerSpecifications.byTeam(teamDAO)
                 .and(PlayerSpecifications.byGender(gender))
                 .and(PlayerSpecifications.byPosition(position))
-                .and(PlayerSpecifications.isNotArchived());
+                .and(PlayerSpecifications.isNotArchived())
+                .and(PlayerSpecifications.byClub(clubDAO));
 
         Page<PlayerDAO> playerDAOPage = playerManager.findAll(spec, PageRequest.of(page - 1, limit));
         List<PlayerAdminListResponse> playerAdminListResponses = playerDAOPage.get()

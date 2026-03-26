@@ -33,6 +33,7 @@ public class PlayerAdminBuilders {
                 .position(request.position())
                 .gender(request.gender())
                 .dateOfBirth(request.birthDate())
+                .isArchived(false)
                 .build();
     }
 }

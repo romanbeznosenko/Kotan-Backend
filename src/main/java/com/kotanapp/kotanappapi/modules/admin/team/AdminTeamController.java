@@ -32,8 +32,8 @@ public class AdminTeamController {
             @PathVariable(name = "clubId") UUID clubId,
             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
             @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
-            @RequestParam(name = "gender", required = false)GenderEnum genderEnum,
-            @RequestParam(name = "ageGroup", required = false)AgeGroupEnum ageGroupEnum
+            @RequestParam(name = "gender", required = false) GenderEnum genderEnum,
+            @RequestParam(name = "ageGroup", required = false) AgeGroupEnum ageGroupEnum
     ) {
         CustomPaginationResponse<TeamAdminListResponse> response = teamAdminPageService.pageTeams(page, limit, clubId, genderEnum, ageGroupEnum);
 
