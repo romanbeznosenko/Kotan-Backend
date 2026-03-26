@@ -3,6 +3,7 @@ package com.kotanapp.kotanappapi.modules.admin.player;
 import com.kotanapp.kotanappapi.modules.admin.player.models.PlayerAdminListResponse;
 import com.kotanapp.kotanappapi.modules.admin.player.models.PlayerAdminRequest;
 import com.kotanapp.kotanappapi.modules.admin.player.services.PlayerAdminCreateService;
+import com.kotanapp.kotanappapi.modules.admin.player.services.PlayerAdminEditService;
 import com.kotanapp.kotanappapi.modules.admin.player.services.PlayerAdminListService;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
@@ -26,6 +27,7 @@ import java.util.UUID;
 public class AdminPlayerController {
     private final PlayerAdminListService playerAdminListService;
     private final PlayerAdminCreateService playerAdminCreateService;
+    private final PlayerAdminEditService playerAdminEditService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -63,5 +65,22 @@ public class AdminPlayerController {
         UUID response = playerAdminCreateService.createPlayer(teamId, request, file);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.CREATED), HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{playerId}", consumes = "multipart/form-data")
+    @Operation(
+            description = "Edit player by admin",
+            summary = "Edit player by admin"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<UUID>> editPlayer(
+            @PathVariable(name = "playerId") UUID playerId,
+            @RequestPart(name = "teamId") UUID teamId,
+            @RequestPart(name = "request") @Valid PlayerAdminRequest request,
+            @RequestPart(name = "file", required = false) MultipartFile file
+    ) throws IOException {
+        UUID response = playerAdminEditService.editPlayer(playerId, teamId, request, file);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
