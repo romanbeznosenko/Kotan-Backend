@@ -1,5 +1,6 @@
 package com.kotanapp.kotanappapi.modules.player.management;
 
+import com.kotanapp.kotanappapi.modules.club.models.ClubDAO;
 import com.kotanapp.kotanappapi.modules.player.models.PlayerDAO;
 import com.kotanapp.kotanappapi.modules.team.models.TeamDAO;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
@@ -40,6 +41,16 @@ public class PlayerSpecifications {
             }
 
             return criteriaBuilder.equal(root.get("position"), position);
+        });
+    }
+
+    public static Specification<PlayerDAO> byClub(ClubDAO club){
+        return ((root, query, criteriaBuilder) -> {
+            if (club == null) {
+                return criteriaBuilder.conjunction();
+            }
+
+            return criteriaBuilder.equal(root.get("team").get("club"), club);
         });
     }
 }
