@@ -45,7 +45,7 @@ public class PlayerAdminListService {
                 .orElse(null);
 
         ClubDAO clubDAO = clubManager.findOne(ClubSpecifications.isOurClub(true))
-                .orElseThrow(ClubNotFoundException::new);
+                .orElse(null);
 
         Specification<PlayerDAO> spec = PlayerSpecifications.byTeam(teamDAO)
                 .and(PlayerSpecifications.byGender(gender))
