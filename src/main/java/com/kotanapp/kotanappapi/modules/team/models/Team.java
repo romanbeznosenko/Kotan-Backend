@@ -1,6 +1,6 @@
 package com.kotanapp.kotanappapi.modules.team.models;
 
-import com.kotanapp.kotanappapi.modules.club.models.ClubId;
+import com.kotanapp.kotanappapi.modules.club.models.Club;
 import com.kotanapp.kotanappapi.utils.enums.AgeGroupEnum;
 import com.kotanapp.kotanappapi.utils.enums.GenderEnum;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Team {
     private TeamId teamId;
-    private ClubId club;
+    private Club club;
     private String name;
     private AgeGroupEnum ageGroup;
     private GenderEnum gender;

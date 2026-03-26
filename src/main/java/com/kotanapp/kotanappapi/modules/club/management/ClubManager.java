@@ -26,4 +26,8 @@ public class ClubManager {
     public Optional<ClubDAO> findById(UUID id) {
         return clubRepository.findById(id);
     }
+
+    public Optional<ClubDAO> findOne(Specification<ClubDAO> specification) {
+        return clubRepository.findOne(specification);
+    }
 }
