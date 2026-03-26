@@ -112,7 +112,8 @@ public class InitializeDatabase {
                 AgeGroupEnum.U16_U17,
                 GenderEnum.MEN,
                 "Ernest Wyderka",
-                "Uknown"
+                "Uknown",
+                club
 
         );
         TeamDAO teamDAO = teamMapper.mapToEntity(team, new CycleAvoidingMappingContext());
@@ -125,10 +126,12 @@ public class InitializeDatabase {
             AgeGroupEnum ageGroup,
             GenderEnum gender,
             String coachName,
-            String leagueName
+            String leagueName,
+            Club club
     ){
         return Team.builder()
                 .teamId(TeamId.of(null))
+                .club(club)
                 .name(name)
                 .ageGroup(ageGroup)
                 .gender(gender)
