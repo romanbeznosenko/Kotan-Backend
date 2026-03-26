@@ -20,6 +20,7 @@ public class PlayerAdminBuilders {
                 .jerseyNumber(playerDAO.getJerseyNumber())
                 .position(playerDAO.getPosition())
                 .photo(storageService.createPresignedGetUrl(playerDAO.getPhoto()))
+                .birthDate(playerDAO.getDateOfBirth())
                 .build();
     }
 
