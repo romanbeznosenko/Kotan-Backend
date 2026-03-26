@@ -99,33 +99,32 @@ public class StorageService {
         if (keyName == null || keyName.isEmpty()) {
             return null;
         }
+
         try (S3Presigner presigner = S3Presigner.builder()
-                                                .region(s3Client.serviceClientConfiguration()
-                                                                .region())
-                                                .endpointOverride(s3Client.serviceClientConfiguration()
-                                                                          .endpointOverride()
-                                                                          .orElse(null))
-                                                .credentialsProvider(s3Client.serviceClientConfiguration()
-                                                                             .credentialsProvider())
-                                                .serviceConfiguration(S3Configuration.builder()
-                                                                                     .pathStyleAccessEnabled(true)
-                                                                                     .build())
-                                                .build()) {
+                .region(s3Client.serviceClientConfiguration()
+                        .region())
+                .endpointOverride(URI.create(STORAGE_S3_PUBLIC_URL))
+                .credentialsProvider(s3Client.serviceClientConfiguration()
+                        .credentialsProvider())
+                .serviceConfiguration(S3Configuration.builder()
+                        .pathStyleAccessEnabled(true)
+                        .build())
+                .build()) {
 
             GetObjectRequest objectRequest = GetObjectRequest.builder()
-                                                             .bucket(BUCKET_NAME)
-                                                             .key(keyName)
-                                                             .build();
+                    .bucket(BUCKET_NAME)
+                    .key(keyName)
+                    .build();
 
             GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-                                                                            .signatureDuration(
-                                                                                    Duration.ofMinutes(EXPIRATION_TIME))
-                                                                            .getObjectRequest(objectRequest)
-                                                                            .build();
+                    .signatureDuration(
+                            Duration.ofMinutes(EXPIRATION_TIME))
+                    .getObjectRequest(objectRequest)
+                    .build();
 
             PresignedGetObjectRequest presignedRequest = presigner.presignGetObject(presignRequest);
             return presignedRequest.url()
-                                   .toExternalForm();
+                    .toExternalForm();
         }
     }
 
