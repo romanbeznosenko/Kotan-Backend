@@ -41,6 +41,10 @@ public class StorageService {
 
     @Value("${storage.s3.bucketName}")
     private String BUCKET_NAME;
+
+    @Value("${storage.s3.publicUrl}")
+    private String STORAGE_S3_PUBLIC_URL;
+
     private final S3Client s3Client;
 
     @Autowired
