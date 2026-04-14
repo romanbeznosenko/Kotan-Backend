@@ -1,11 +1,9 @@
 package com.kotanapp.kotanappapi.modules.admin.article.services;
 
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleBodyRequest;
+import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListResponse;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
-import com.kotanapp.kotanappapi.modules.article.models.Article;
-import com.kotanapp.kotanappapi.modules.article.models.ArticleBody;
-import com.kotanapp.kotanappapi.modules.article.models.ArticleBodyId;
-import com.kotanapp.kotanappapi.modules.article.models.ArticleId;
+import com.kotanapp.kotanappapi.modules.article.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -36,6 +34,17 @@ public class AdminArticleBuilders {
                 .shortPreview(null)
                 .isPublished(false)
                 .isArchived(false)
+                .build();
+    }
+
+    public static AdminArticleListResponse buildListResponse(ArticleDAO articleDAO, String image) {
+        return AdminArticleListResponse.builder()
+                .articleId(articleDAO.getId())
+                .title(articleDAO.getTitle())
+                .shortPreview(articleDAO.getShortPreview())
+                .category(articleDAO.getCategory())
+                .date(articleDAO.getCreatedAt())
+                .image(image)
                 .build();
     }
 }
