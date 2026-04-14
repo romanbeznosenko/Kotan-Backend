@@ -1,5 +1,6 @@
 package com.kotanapp.kotanappapi.modules.admin.article.services;
 
+import com.kotanapp.kotanappapi.files.services.StorageService;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleBodyRequest;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
 import com.kotanapp.kotanappapi.modules.article.management.ArticleBodyManager;
@@ -14,7 +15,10 @@ import com.kotanapp.kotanappapi.utils.CycleAvoidingMappingContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -25,13 +29,17 @@ public class AdminCreateArticleService {
     private final ArticleBodyMapper articleBodyMapper;
     private final ArticleManager articleManager;
     private final ArticleMapper articleMapper;
+    private final StorageService storageService;
 
-    public UUID createArticle(AdminArticleRequest request) {
+    private final static String IMAGE_FOLDER_NAME = "image";
+    private final static String HERO_IMAGE_FOLDER_NAME = "hero_image";
+
+    public UUID createArticle(AdminArticleRequest request, MultipartFile image, MultipartFile heroImage) throws IOException {
         log.info("Creating new article...");
 
         CycleAvoidingMappingContext context = new CycleAvoidingMappingContext();
 
-        Article article = buildAndSaveArticle(request, context);
+        Article article = buildAndSaveArticle(request, image, heroImage, context);
 
         saveArticleBodies(request, article, context);
 
@@ -40,9 +48,28 @@ public class AdminCreateArticleService {
 
     private Article buildAndSaveArticle(
             AdminArticleRequest request,
+            MultipartFile image,
+            MultipartFile heroImage,
             CycleAvoidingMappingContext context
-    ) {
+    ) throws IOException {
         Article article = AdminArticleBuilders.buildFromRequest(request);
+        if (image != null) {
+            String storageKey = storageService.generateStorageKey(UUID.randomUUID(), image, IMAGE_FOLDER_NAME);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(image.getBytes());
+
+            storageService.uploadFile(storageKey, image.getContentType(), outputStream);
+            article.setImage(storageKey);
+        }
+
+        if (heroImage != null) {
+            String storageKey = storageService.generateStorageKey(UUID.randomUUID(), heroImage, HERO_IMAGE_FOLDER_NAME);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            outputStream.write(heroImage.getBytes());
+
+            storageService.uploadFile(storageKey, heroImage.getContentType(), outputStream);
+            article.setHeroImage(storageKey);
+        }
 
         ArticleDAO articleDAO = articleMapper.mapToEntity(article, context);
 
