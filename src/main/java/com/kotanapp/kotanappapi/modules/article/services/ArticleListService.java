@@ -1,10 +1,10 @@
-package com.kotanapp.kotanappapi.modules.admin.article.services;
+package com.kotanapp.kotanappapi.modules.article.services;
 
 import com.kotanapp.kotanappapi.files.services.StorageService;
-import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListResponse;
 import com.kotanapp.kotanappapi.modules.article.management.ArticleManager;
 import com.kotanapp.kotanappapi.modules.article.management.ArticleSpecifications;
 import com.kotanapp.kotanappapi.modules.article.models.ArticleDAO;
+import com.kotanapp.kotanappapi.modules.article.models.ArticleListResponse;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
 import com.kotanapp.kotanappapi.utils.enums.ArticleCategoryEnum;
 import lombok.RequiredArgsConstructor;
@@ -19,26 +19,29 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class AdminListArticleService {
+public class ArticleListService {
     private final ArticleManager articleManager;
     private final StorageService storageService;
 
-    public CustomPaginationResponse<AdminArticleListResponse> listArticles(int page, int limit, ArticleCategoryEnum category) {
+    public CustomPaginationResponse<ArticleListResponse> listArticles(
+            int page, int limit,
+            ArticleCategoryEnum category
+    ) {
         log.info("Listing articles...");
 
         PageRequest pageRequest = PageRequest.of(page - 1, limit);
-        Specification<ArticleDAO> spec = ArticleSpecifications.byCategory(category)
+        Specification<ArticleDAO> specification = ArticleSpecifications.byCategory(category)
                 .and(ArticleSpecifications.isArchivedFalse());
 
-        Page<ArticleDAO> articleDAOPage = articleManager.findAll(spec, pageRequest);
-        List<AdminArticleListResponse> listResponse = articleDAOPage.get()
+        Page<ArticleDAO> articleDAOPage = articleManager.findAll(specification, pageRequest);
+        List<ArticleListResponse> response = articleDAOPage.get()
                 .map(item -> {
                     String image = storageService.createPresignedGetUrl(item.getImage());
 
-                    return AdminArticleBuilders.buildListResponse(item, image);
+                    return ArticleBuilders.buildListResponse(item, image);
                 })
                 .toList();
 
-        return new CustomPaginationResponse<>(listResponse, articleDAOPage.getTotalElements());
+        return new CustomPaginationResponse<>(response, articleDAOPage.getTotalElements());
     }
 }

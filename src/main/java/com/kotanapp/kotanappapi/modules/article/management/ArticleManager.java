@@ -3,7 +3,9 @@ package com.kotanapp.kotanappapi.modules.article.management;
 import com.kotanapp.kotanappapi.modules.article.models.ArticleDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,14 @@ public class ArticleManager {
         return articleRepository.save(article);
     }
 
-    public Page<ArticleDAO> findAllArticles(Specification<ArticleDAO> specification, Pageable pageable) {
-        return articleRepository.findAll(specification, pageable);
+    public Page<ArticleDAO> findAll(Specification<ArticleDAO> specification, Pageable pageable) {
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+
+        return articleRepository.findAll(specification, sortedPageable);
     }
 
     public Optional<ArticleDAO> findOne(Specification<ArticleDAO> specification) {

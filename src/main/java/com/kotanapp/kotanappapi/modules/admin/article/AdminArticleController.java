@@ -3,10 +3,7 @@ package com.kotanapp.kotanappapi.modules.admin.article;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListResponse;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleResponse;
-import com.kotanapp.kotanappapi.modules.admin.article.services.AdminCreateArticleService;
-import com.kotanapp.kotanappapi.modules.admin.article.services.AdminEditArticleService;
-import com.kotanapp.kotanappapi.modules.admin.article.services.AdminGetArticleService;
-import com.kotanapp.kotanappapi.modules.admin.article.services.AdminListArticleService;
+import com.kotanapp.kotanappapi.modules.admin.article.services.*;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
 import com.kotanapp.kotanappapi.utils.enums.ArticleCategoryEnum;
@@ -30,6 +27,7 @@ public class AdminArticleController {
     private final AdminListArticleService adminListArticleService;
     private final AdminGetArticleService adminGetArticleService;
     private final AdminEditArticleService adminEditArticleService;
+    private final AdminDeleteArticleService adminDeleteArticleService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -94,5 +92,19 @@ public class AdminArticleController {
         UUID response = adminEditArticleService.editArticle(articleId, request, image, heroImage);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{articleId}")
+    @Operation(
+            description = "Delete article by id",
+            summary = "Delete article by id"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<Void>> deleteArticleById(
+            @PathVariable(name = "articleId") UUID articleId
+    ) {
+        adminDeleteArticleService.deleteArticle(articleId);
+
+        return new ResponseEntity<>(new CustomResponse<>(null, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
