@@ -19,4 +19,8 @@ public class ArticleBodyManager {
     public List<ArticleBodyDAO> findAll(Specification<ArticleBodyDAO> specification) {
         return articleBodyRepository.findAll(specification);
     }
+
+    public void deleteAll(List<ArticleBodyDAO> articleBodys) {
+        articleBodyRepository.deleteAll(articleBodys);
+    }
 }

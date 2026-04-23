@@ -31,8 +31,8 @@ public class AdminCreateArticleService {
     private final ArticleMapper articleMapper;
     private final StorageService storageService;
 
-    private final static String IMAGE_FOLDER_NAME = "image";
-    private final static String HERO_IMAGE_FOLDER_NAME = "hero_image";
+    private final static String IMAGE_FOLDER_NAME = "article_image";
+    private final static String HERO_IMAGE_FOLDER_NAME = "article_hero_image";
 
     public UUID createArticle(AdminArticleRequest request, MultipartFile image, MultipartFile heroImage) throws IOException {
         log.info("Creating new article...");

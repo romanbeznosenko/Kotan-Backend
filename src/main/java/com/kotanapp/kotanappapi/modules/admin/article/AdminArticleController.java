@@ -4,6 +4,7 @@ import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListRes
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleResponse;
 import com.kotanapp.kotanappapi.modules.admin.article.services.AdminCreateArticleService;
+import com.kotanapp.kotanappapi.modules.admin.article.services.AdminEditArticleService;
 import com.kotanapp.kotanappapi.modules.admin.article.services.AdminGetArticleService;
 import com.kotanapp.kotanappapi.modules.admin.article.services.AdminListArticleService;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
@@ -28,6 +29,7 @@ public class AdminArticleController {
     private final AdminCreateArticleService adminCreateArticleService;
     private final AdminListArticleService adminListArticleService;
     private final AdminGetArticleService adminGetArticleService;
+    private final AdminEditArticleService adminEditArticleService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -73,6 +75,23 @@ public class AdminArticleController {
             @PathVariable(name = "articleId") UUID articleId
     ) {
         AdminArticleResponse response = adminGetArticleService.getArticle(articleId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{articleId}", consumes = {"multipart/form-data"})
+    @Operation(
+            description = "Edit article by admin",
+            summary = "Edit article by admin"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<UUID>> editArticle(
+            @PathVariable(name = "articleId") UUID articleId,
+            @RequestPart(name = "request") @Valid AdminArticleRequest request,
+            @RequestPart(name = "image", required = false) MultipartFile image,
+            @RequestPart(name = "heroImage", required = false) MultipartFile heroImage
+    ) throws IOException {
+        UUID response = adminEditArticleService.editArticle(articleId, request, image, heroImage);
 
         return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
