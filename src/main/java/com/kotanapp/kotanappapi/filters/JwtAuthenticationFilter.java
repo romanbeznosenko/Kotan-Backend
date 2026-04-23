@@ -4,7 +4,6 @@ import com.kotanapp.kotanappapi.core.user.management.UserManager;
 import com.kotanapp.kotanappapi.core.user.models.UserDAO;
 import com.kotanapp.kotanappapi.utils.CustomUserDetails;
 import com.kotanapp.kotanappapi.utils.UserDetailsService;
-import com.kotanapp.kotanappapi.utils.enums.UserTypeEnum;
 import com.kotanapp.kotanappapi.utils.jwt.JwtService;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -43,6 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Extract Authorization header
         String authHeader = request.getHeader("Authorization");
+        log.info("=== Auth header: {}", authHeader);  // Add this
+
+        String path = request.getRequestURI();
+        log.info("=== JWT Filter hit: {}", path);  // Add this
 
         // Check if Bearer token is present
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -128,6 +131,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 path.startsWith("/error/") ||
                 path.startsWith("/ws/") ||
                 path.startsWith("/internal/") ||
+                path.startsWith("/api/public/") ||
                 path.equals("/csrf");
     }
 }

@@ -8,10 +8,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/article")
+@RequestMapping(value = "/api/public/article")
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleListService articleListService;
@@ -23,6 +24,7 @@ public class ArticleController {
             description = "List articles",
             summary = "List articles"
     )
+    @PreAuthorize("permitAll()")
     public ResponseEntity<CustomPaginationResponse<ArticleListResponse>> listArticles(
             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
             @RequestParam(name = "limit", required = false, defaultValue = "10") int limit,
