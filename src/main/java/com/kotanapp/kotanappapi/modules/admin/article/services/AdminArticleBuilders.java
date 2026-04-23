@@ -31,7 +31,6 @@ public class AdminArticleBuilders {
                 .shortPreview(request.shortPreview())
                 .category(request.category())
                 .image(null)
-                .shortPreview(null)
                 .isPublished(false)
                 .isArchived(false)
                 .build();
