@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleManager {
@@ -18,5 +20,9 @@ public class ArticleManager {
 
     public Page<ArticleDAO> findAllArticles(Specification<ArticleDAO> specification, Pageable pageable) {
         return articleRepository.findAll(specification, pageable);
+    }
+
+    public Optional<ArticleDAO> findOne(Specification<ArticleDAO> specification) {
+        return articleRepository.findOne(specification);
     }
 }

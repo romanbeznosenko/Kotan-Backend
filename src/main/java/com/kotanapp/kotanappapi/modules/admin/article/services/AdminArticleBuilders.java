@@ -48,7 +48,7 @@ public class AdminArticleBuilders {
                 .build();
     }
 
-    public static AdminArticleBodyResponse buildBody(ArticleBodyDAO articleBodyDAO) {
+    public static AdminArticleBodyResponse buildBodyResponse(ArticleBodyDAO articleBodyDAO) {
         return AdminArticleBodyResponse.builder()
                 .articleBodyId(articleBodyDAO.getId())
                 .type(articleBodyDAO.getType())

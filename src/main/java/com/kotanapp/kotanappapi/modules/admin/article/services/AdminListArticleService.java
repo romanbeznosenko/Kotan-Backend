@@ -27,7 +27,8 @@ public class AdminListArticleService {
         log.info("Listing articles...");
 
         PageRequest pageRequest = PageRequest.of(page - 1, limit);
-        Specification<ArticleDAO> spec = ArticleSpecifications.byCategory(category);
+        Specification<ArticleDAO> spec = ArticleSpecifications.byCategory(category)
+                .and(ArticleSpecifications.isArchivedFalse());
 
         Page<ArticleDAO> articleDAOPage = articleManager.findAllArticles(spec, pageRequest);
         List<AdminArticleListResponse> listResponse = articleDAOPage.get()

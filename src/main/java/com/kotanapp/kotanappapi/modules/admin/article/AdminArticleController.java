@@ -2,7 +2,9 @@ package com.kotanapp.kotanappapi.modules.admin.article;
 
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListResponse;
 import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
+import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleResponse;
 import com.kotanapp.kotanappapi.modules.admin.article.services.AdminCreateArticleService;
+import com.kotanapp.kotanappapi.modules.admin.article.services.AdminGetArticleService;
 import com.kotanapp.kotanappapi.modules.admin.article.services.AdminListArticleService;
 import com.kotanapp.kotanappapi.utils.CustomPaginationResponse;
 import com.kotanapp.kotanappapi.utils.CustomResponse;
@@ -25,6 +27,7 @@ import java.util.UUID;
 public class AdminArticleController {
     private final AdminCreateArticleService adminCreateArticleService;
     private final AdminListArticleService adminListArticleService;
+    private final AdminGetArticleService adminGetArticleService;
 
     private static final String DEFAULT_RESPONSE = "Operation successful.";
 
@@ -58,5 +61,19 @@ public class AdminArticleController {
         CustomPaginationResponse<AdminArticleListResponse> response = adminListArticleService.listArticles(page, limit, category);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{articleId}")
+    @Operation(
+            description = "Get article by admin",
+            summary = "Get article by admin"
+    )
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<CustomResponse<AdminArticleResponse>> getArticleById(
+            @PathVariable(name = "articleId") UUID articleId
+    ) {
+        AdminArticleResponse response = adminGetArticleService.getArticle(articleId);
+
+        return new ResponseEntity<>(new CustomResponse<>(response, DEFAULT_RESPONSE, HttpStatus.OK), HttpStatus.OK);
     }
 }
