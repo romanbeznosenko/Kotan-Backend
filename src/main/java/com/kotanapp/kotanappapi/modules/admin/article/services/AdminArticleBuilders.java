@@ -1,11 +1,11 @@
 package com.kotanapp.kotanappapi.modules.admin.article.services;
 
-import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleBodyRequest;
-import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleListResponse;
-import com.kotanapp.kotanappapi.modules.admin.article.models.AdminArticleRequest;
+import com.kotanapp.kotanappapi.modules.admin.article.models.*;
 import com.kotanapp.kotanappapi.modules.article.models.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AdminArticleBuilders {
@@ -45,6 +45,27 @@ public class AdminArticleBuilders {
                 .category(articleDAO.getCategory())
                 .date(articleDAO.getCreatedAt())
                 .image(image)
+                .build();
+    }
+
+    public static AdminArticleBodyResponse buildBody(ArticleBodyDAO articleBodyDAO) {
+        return AdminArticleBodyResponse.builder()
+                .articleBodyId(articleBodyDAO.getId())
+                .type(articleBodyDAO.getType())
+                .text(articleBodyDAO.getText())
+                .orderIndex(articleBodyDAO.getOrderIndex())
+                .build();
+    }
+
+    public static AdminArticleResponse buildResponse(ArticleDAO articleDAO, List<AdminArticleBodyResponse> body, String image, String heroImage) {
+        return AdminArticleResponse.builder()
+                .articleId(articleDAO.getId())
+                .title(articleDAO.getTitle())
+                .shortPreview(articleDAO.getShortPreview())
+                .image(image)
+                .heroImage(heroImage)
+                .date(articleDAO.getCreatedAt())
+                .body(body)
                 .build();
     }
 }
